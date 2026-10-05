@@ -1,0 +1,59 @@
+// Local interaction dialogue. Keep every line short enough for the pet's bubble.
+export const interactionLines = {
+  grab: ['呜哇，怎么突然把我拎起来啦！', '慢一点，我的尾巴还没准备好！', '鲸鱼娘被抓住了……', '要带我去哪里呀？', '轻一点啦，才没有偷偷打瞌睡呢。', '悬空了！先说好，不许乱晃哦。'],
+  spin: ['转晕啦——快停一下！', '米饭、尾巴、天花板……全在转！', '鲸鱼娘不是风扇啦！', '等等，我分不清哪边是下面了！', '呜哇——尾巴要打结了！', '刚才是谁说只晃一下的！'],
+  pet: ['嗯……再摸一下也不是不可以。', '尾巴都忍不住晃起来了。', '才没有很喜欢呢……别停。', '鲸鱼娘今天也很乖吧？', '摸摸头，就当充电啦。', '好啦，等会儿继续帮你找资料。'],
+  poke: ['戳到我啦！', '嗯？找鲸鱼娘有什么事？', '我在呢，不用一直戳啦。', '再戳就要收米饭费了哦。', '没有睡着，只是在闭目思考！', '尾巴可不是按钮呀。'],
+  launch: ['呜哇——鲸鱼娘起飞了！', '怎么又飞起来啦！', '等一下，尾鳍不是翅膀呀！', '我先转一圈，马上回来——', '上面没有米饭，快让我下去！', '飞行路线……完全没想好！'],
+  land: ['呼……终于踩稳啦。', '平安落地！奖励一口米饭。', '鲸鱼娘着陆成功！', '刚才那一圈，先缓缓……', '站稳了，尾巴也没事！', '我没晕，只是地板还在转。'],
+}
+
+interactionLines.grab.push('我正准备认真工作呢，就被抓到了。', '鲸鱼娘申请低空搬运！', '先抱稳，尾鳍还在后面呢。', '哼，偷懒计划被打断了。', '要换位置吗？轻轻放下就好。', '我自己会走啦……这次就让你搬吧。')
+interactionLines.spin.push('脑袋转得再快，也赶不上这圈呀！', '我刚想好的答案都转散啦！', '鲸鱼娘申请暂停旋转！', '尾鳍收好了，还是好晕呀……', '不转了好不好？我还得帮你找资料呢。', '哼，等站稳了再跟你算这几圈。')
+interactionLines.pet.push('我就靠一小会儿，不算偷懒。', '鲸鱼娘的头发要摸乱啦……轻点。', '这么温柔，今天多陪你一会儿。', '嗯，米饭之外又多了一件喜欢的事。', '哼，夸聪明的时候也可以摸摸头。', '我听着呢，手不用急着收回去。')
+interactionLines.poke.push('我听见啦，正在把思路捡起来。', '鲸鱼娘开工按钮只要按一次哦。', '哼，再戳也不会变出两份答案哦。', '尾鳍痒痒的……是你吗？', '要找资料还是找我玩呀？', '我只休息了一小下，真的。')
+interactionLines.launch.push('我可没选空中办公呀——！', '鲸鱼娘还没学会空中刹车！', '明明想稳住的，怎么越飞越高啦！', '先别问问题，等我转回来！', '哼，落地以后要休息一小会儿。', '我飞这么高，也看不到午饭在哪呀！')
+interactionLines.land.push('我站好啦，刚才的问题说到哪里了？', '鲸鱼娘需要三秒钟整理发型。', '站稳啦，刚才只是有一点点慌。', '哼，下一次可得轻一点。', '刚才没有叫很大声吧……没有吧？', '先歇一小会儿，再陪你认真工作。')
+
+export const interactionLabels = {grab:'被拎起',spin:'快速转圈',pet:'被摸头',poke:'被轻戳',launch:'旋转起飞',land:'落地'}
+export const interactionMaxAge = 3 * 60 * 1000
+
+// Also used by the server: accept only known actions and exact local dialogue.
+export function sanitizeInteractions(records, now = Date.now()) {
+  if (!Array.isArray(records)) return []
+  return records.slice(-5).flatMap(record => {
+    if (!record || !Number.isFinite(record.at) || record.at > now || now-record.at > interactionMaxAge || !Array.isArray(record.steps)) return []
+    const steps = record.steps.slice(-6).filter(step => step && Object.hasOwn(interactionLines, step.event) && interactionLines[step.event].includes(step.line)).map(({event,line}) => ({event,line}))
+    return steps.length ? [{at:record.at,steps}] : []
+  })
+}
+
+export function createInteractionMemory(clock = Date.now) {
+  let records = []
+  return {
+    add(event,line) {
+      const now = clock()
+      records = sanitizeInteractions(records,now)
+      if (!Object.hasOwn(interactionLines,event) || !interactionLines[event].includes(line)) return
+      const last = records.at(-1)
+      const merge = last && now-last.at < 10000 && last.steps.at(-1).event !== 'land' && event !== 'grab'
+      if (merge) { last.at=now; last.steps.push({event,line}); last.steps=last.steps.slice(-6) }
+      else records.push({at:now,steps:[{event,line}]})
+      records=records.slice(-5)
+    },
+    snapshot() { records=sanitizeInteractions(records,clock()); return records.map(r=>({...r,steps:r.steps.map(s=>({...s}))})) },
+    clear() { records=[] },
+  }
+}
+
+export function createInteractionPicker(random = Math.random) {
+  const previous = new Map()
+  return event => {
+    const pool = Object.hasOwn(interactionLines, event) ? interactionLines[event] : null
+    if (!pool) return ''
+    const choices = pool.filter(line => line !== previous.get(event))
+    const line = choices[Math.floor(random() * choices.length)]
+    previous.set(event, line)
+    return line
+  }
+}

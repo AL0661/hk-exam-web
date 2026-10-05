@@ -1,0 +1,1920 @@
+{
+  "categories": [
+    {
+      "id": "01",
+      "title": "【国际体系】IGCSE/ALEVEL材料",
+      "description": "IG及AL分考试局科目资料",
+      "resources": [
+        {
+          "id": "01-001",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "会计"
+          ],
+          "name": "AQA-IGCSE 会计 9215",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1MLBlvA1GY0GQzTXQfpd1rBG4dBgRyZb9?usp=drive_link"
+        },
+        {
+          "id": "01-002",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "化学"
+          ],
+          "name": "AQA-IGCSE 化学 9202",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1FIyRtJTLyVyLwxKNMemH1eWvSGzamRxY?usp=drive_link"
+        },
+        {
+          "id": "01-003",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "数学"
+          ],
+          "name": "AQA-IGCSE 数学 Core 9260",
+          "note": "备注：参考PDF中同一链接曾同时列入IG与AL；按现有文件夹名称归IG。",
+          "url": "https://drive.google.com/drive/folders/1VorQzhL9sU7Qb6qj7bSDQoqlK6f690Xa?usp=drive_link"
+        },
+        {
+          "id": "01-004",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "物理"
+          ],
+          "name": "AQA-IGCSE物理（9203）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1mLEkp00cV6W4YPuoIVldEKrMR02Hjj4C?usp=drive_link"
+        },
+        {
+          "id": "01-005",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "生物"
+          ],
+          "name": "S 生物 9201【AQA IG】",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1PR8Xe8FY_BDDMajBNjdQH_mWGdfE4P_M?usp=drive_link"
+        },
+        {
+          "id": "01-006",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "经济"
+          ],
+          "name": "AQA-IGCSE 经济 9214",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1RMNFMK5p2fu21viegBq_mr-lLvjNrhba?usp=drive_link"
+        },
+        {
+          "id": "01-007",
+          "path": [
+            "IGCSE",
+            "AQA",
+            "英语（第二语言）"
+          ],
+          "name": "AQA-IGCSE-ESL（9280）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1wxH-IisAMKbXqGYMlAA4HSjYiOpGaZ_A?usp=drive_link"
+        },
+        {
+          "id": "01-008",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "化学"
+          ],
+          "name": "CIE-IGCSE-0620化学-全套",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1rPmZ98zpKWB5LnMheM74sylVNkOj2jN0?usp=drive_link"
+        },
+        {
+          "id": "01-009",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "地理"
+          ],
+          "name": "CIE IGCSE地理0460",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/13mmiqJnszr1GvpY-WNWvfilf83o7-s-D?usp=drive_link"
+        },
+        {
+          "id": "01-010",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "数学"
+          ],
+          "name": "CIE-IGCSE-0580数学-全套",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1YpTy3UwUrX-JImbFuv7CZ1ZT7OHQxu_Y?usp=drive_link"
+        },
+        {
+          "id": "01-011",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "数学（进阶／附加）"
+          ],
+          "name": "CIE-IGCSE-0606附加数学-全套",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1C0Im35Ut0_I4aaYl03oLK4G8PEfU_5y3?usp=drive_link"
+        },
+        {
+          "id": "01-012",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "物理"
+          ],
+          "name": "CIE-IGCSE-物理0625",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1529TpRj_3sxUGXWPi2nL_NhC379H0Kfp?usp=drive_link"
+        },
+        {
+          "id": "01-013",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "生物"
+          ],
+          "name": "CIE考试局 IGCSE生物0610",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ERqI1o-HdYzHJ_0Tf45dtPDVQJ_jv4cR?usp=drive_link"
+        },
+        {
+          "id": "01-014",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "经济"
+          ],
+          "name": "CIE  IGCSE经济（0455）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1C5ZW9PFLJfpWN17NCEf1xIn4XQcqJatz?usp=drive_link"
+        },
+        {
+          "id": "01-015",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "综合科学"
+          ],
+          "name": "CIE IGCSE综合科学 0654",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/15Y52dtQNL19ckH2cChWAtP3_YHHN1duM?usp=drive_link"
+        },
+        {
+          "id": "01-016",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "英语（第一语言）"
+          ],
+          "name": "CIE考试局 IGCSE 英语第一语言0500",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1kiB_kY0IwJPU3mS2N7xmxh-aTeHa6Kuv?usp=drive_link"
+        },
+        {
+          "id": "01-017",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "会计"
+          ],
+          "name": "爱德思IG会计",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1YdEE6672TDvKlrKrbheBSex30llJivLb?usp=drive_link"
+        },
+        {
+          "id": "01-018",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "化学"
+          ],
+          "name": "爱德思IG化学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1YKgu1tKumCJPUpwEfDqTIwnL4ohU0NeT?usp=drive_link"
+        },
+        {
+          "id": "01-019",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "心理学"
+          ],
+          "name": "爱德思IG心理",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/12Oi5vdfTUmm_v_PTnoM-2WBaMFsjYtNo?usp=drive_link"
+        },
+        {
+          "id": "01-020",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "数学"
+          ],
+          "name": "爱德思IG数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1uj2a8orAbYhjbTGffAfbdSxrS72V5xQm?usp=drive_link"
+        },
+        {
+          "id": "01-021",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "物理"
+          ],
+          "name": "爱德思IG物理",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Ga8Es7v-5e-agn7YXWVatFbs5GG11CyB?usp=drive_link"
+        },
+        {
+          "id": "01-022",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "生物"
+          ],
+          "name": "爱德思IG生物",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1kA8lmMXbNS-76itiTSumYbhH5Gjj385t?usp=drive_link"
+        },
+        {
+          "id": "01-023",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "经济"
+          ],
+          "name": "爱德思IG经济",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1IH5T2OaJW3RwE-5HdndaiQ6mbsx4975K?usp=drive_link"
+        },
+        {
+          "id": "01-024",
+          "path": [
+            "IGCSE",
+            "爱德思",
+            "英语（第二语言）"
+          ],
+          "name": "爱德思 英语第二语言（全）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/13ztKszfNvUVfq8gpIEui7SR3azD35Wi0?usp=drive_link"
+        },
+        {
+          "id": "01-025",
+          "path": [
+            "A-Level",
+            "AQA",
+            "化学"
+          ],
+          "name": "AQA-ALEVEL化学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1BWnRecaczZqqs3lXx7ShbCzGOlNMqN6U?usp=drive_link"
+        },
+        {
+          "id": "01-026",
+          "path": [
+            "A-Level",
+            "AQA",
+            "商务"
+          ],
+          "name": "AQA-ALEVEL 商务（9625）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/12S6QpdnlTPWGiCyKnEKFzE1qugyREP5X?usp=drive_link"
+        },
+        {
+          "id": "01-027",
+          "path": [
+            "A-Level",
+            "AQA",
+            "数学"
+          ],
+          "name": "AQA-ALEVEL 数学 （9660）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/13M0TCBjTeZI160QwKU0iTfykJ6evY0Km?usp=drive_link"
+        },
+        {
+          "id": "01-028",
+          "path": [
+            "A-Level",
+            "AQA",
+            "数学（进阶／附加）"
+          ],
+          "name": "AQA-ALEVEL 进阶数学（9665）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Lw2oPFMCC3ll-HqgAVpranJVq1ha7G76?usp=drive_link"
+        },
+        {
+          "id": "01-029",
+          "path": [
+            "A-Level",
+            "CIE",
+            "数学"
+          ],
+          "name": "CIE ALEVEL数学 9709",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1vMRPfeu4vMSFdxWuEVmO8C2kbr1w45ir?usp=drive_link"
+        },
+        {
+          "id": "01-030",
+          "path": [
+            "A-Level",
+            "CIE",
+            "生物"
+          ],
+          "name": "ALEVEL生物（杭州整理资料里有AS阶段内容）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1f55zI_ktsc1W2DVY0WMS_UU1FLaWSAXU?usp=drive_link"
+        },
+        {
+          "id": "01-031",
+          "path": [
+            "A-Level",
+            "CIE",
+            "经济"
+          ],
+          "name": "ALEVEL 经济9708",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1tpsyBdEB5wJaUTCyS_FBaIHXHYnRKUQj?usp=drive_link"
+        },
+        {
+          "id": "01-032",
+          "path": [
+            "A-Level",
+            "CIE",
+            "综合／未注明"
+          ],
+          "name": "ALEVEL整理后材料【杭州XDF】",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/18yp_-T7NHFykaDmJZLJtWbg_t7FbxnH0?usp=drive_link"
+        },
+        {
+          "id": "01-033",
+          "path": [
+            "A-Level",
+            "爱德思",
+            "化学"
+          ],
+          "name": "爱德思 Alevel 化学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1vwqtrGCZHnYkHwtnooPfOhwaSAh9m1rZ?usp=drive_link"
+        },
+        {
+          "id": "01-034",
+          "path": [
+            "A-Level",
+            "爱德思",
+            "数学"
+          ],
+          "name": "爱德思ALEVEL数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1hY0DqWebNRGhnh9drXkzMyLwvmhkQzo5?usp=drive_link"
+        },
+        {
+          "id": "01-035",
+          "path": [
+            "A-Level",
+            "爱德思",
+            "物理"
+          ],
+          "name": "爱德思 alevel 物理",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1OL5CxfG7JJlCOT_loZtOfazzPHZm2TBz?usp=drive_link"
+        },
+        {
+          "id": "01-036",
+          "path": [
+            "A-Level",
+            "爱德思",
+            "生物"
+          ],
+          "name": "爱德思-ALEVEL-生物-全套",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1be1TWxSJv3B5hmDoj7IJ-cizd9YWMLxV?usp=drive_link"
+        },
+        {
+          "id": "01-037",
+          "path": [
+            "A-Level",
+            "爱德思",
+            "经济"
+          ],
+          "name": "爱德思 Alevel 经济",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1mvRy6Z8z9p6iepeOQk64kfUM4_pjSfID?usp=drive_link"
+        },
+        {
+          "id": "01-038",
+          "path": [
+            "IGCSE",
+            "CIE",
+            "英语（第二语言）"
+          ],
+          "name": "CIE考试局ESL英文第二语言",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1o3BQuX9ONO7utQyucAJmScGfUYbNJNb3?usp=drive_link"
+        },
+        {
+          "id": "01-039",
+          "path": [
+            "IG及AL未归类材料"
+          ],
+          "name": "【国际体系】AL&IG未归类资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1WH49pg4vhroXm0ZD_eyXww3BEPXOmoWx?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "title": "【国际体系】IB体系材料",
+      "description": "IB课程教材与教学资料综合入口",
+      "resources": [
+        {
+          "id": "02-004",
+          "path": [
+            "IB综合入口"
+          ],
+          "name": "【国际体系】IB体系教材资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1KnIRqaGupWflMCKaR8ssvWkW1dNL0LOg?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "title": "【国际体系】外部考试测评及竞赛",
+      "description": "国际入学考试测评及数学竞赛",
+      "resources": [
+        {
+          "id": "03-001",
+          "path": [
+            "CAT4"
+          ],
+          "name": "【国际体系测评】CAT4",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1M48qFW3mFENVI-VCjkxh3at6rxiPrSlp?usp=drive_link"
+        },
+        {
+          "id": "03-002",
+          "path": [
+            "CEM"
+          ],
+          "name": "【国际体系测评】CEM",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1sjYewuXlNaruCaXMROBropdqZsTCtWGg?usp=drive_link"
+        },
+        {
+          "id": "03-003",
+          "path": [
+            "IDAT"
+          ],
+          "name": "【国际体系测评】IDAT考试-汉基国际学校CIS&香港国际HKIS",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1tRV2lAHMG3ZV39st12PY_VzA87YFbCaQ?usp=drive_link"
+        },
+        {
+          "id": "03-004",
+          "path": [
+            "ISEE及SSAT"
+          ],
+          "name": "【国际体系】美系ISEE&SSAT资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/18QguyYBsBAvki0kZwgcIMHHuA6hUZQHy?usp=drive_link"
+        },
+        {
+          "id": "03-005",
+          "path": [
+            "KS2及KS3阶段测试"
+          ],
+          "name": "【英国小初】KS2-KS3剑桥阶段测试卷",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1rNUZvWD8wvFVDc50CtXLF0r4qd_TtOSp?usp=drive_link"
+        },
+        {
+          "id": "03-006",
+          "path": [
+            "MAP"
+          ],
+          "name": "【国际体系测评】MAP",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ocrUEJSzTYxI7Pqn3HMeISsF7kPUsdxQ?usp=drive_link"
+        },
+        {
+          "id": "03-007",
+          "path": [
+            "SSAT"
+          ],
+          "name": "【国际体系测评】美系SSAT考试",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1kEhJBUQL6pI9CR1bMlGkp6qgOAVfZOhk?usp=drive_link"
+        },
+        {
+          "id": "03-008",
+          "path": [
+            "数学竞赛"
+          ],
+          "name": "【国际体系】AMC美澳数学竞赛",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1jEEuIFKEuu42lYAIpKlwW-uVrJVbAWUN?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "title": "【DSE体系】教材及教学资料汇总",
+      "description": "香港中小学教材教研材料及课包",
+      "resources": [
+        {
+          "id": "04-001",
+          "path": [
+            "小学教材",
+            "中国语文"
+          ],
+          "name": "【中文科】EPHHK-我愛學語文",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1cY1CoMjRuJyrs0rf4KkZBN55nCBX3_cU?usp=drive_link"
+        },
+        {
+          "id": "04-002",
+          "path": [
+            "小学教材",
+            "中国语文"
+          ],
+          "name": "【中文科】啟思語文新天地（第二版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1eI2EC8xIRVvsgRldYz2LmadgHuhwQqm8?usp=drive_link"
+        },
+        {
+          "id": "04-003",
+          "path": [
+            "小学教材",
+            "中国语文"
+          ],
+          "name": "【中文科】新編啟思中國語文（第三版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1JI4cXFCTCbl4v-0UZShwu7SmMRQAYrQq?usp=drive_link"
+        },
+        {
+          "id": "04-004",
+          "path": [
+            "小学教材",
+            "中国语文"
+          ],
+          "name": "【中文科】活學中國語文",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1xUH7TiA9owaF97XlU39hXv5YqsdwsetA?usp=drive_link"
+        },
+        {
+          "id": "04-005",
+          "path": [
+            "小学教材",
+            "中国语文"
+          ],
+          "name": "【中文科】現代中國語文（修訂版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/10A3YNDD6AhJT-6a2pFLqqUyq9dyI_O67?usp=drive_link"
+        },
+        {
+          "id": "04-006",
+          "path": [
+            "小学教材",
+            "常识"
+          ],
+          "name": "【常识科】朗文活學常識",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1pzMFfCmGkUb2x1Q_eKhlo_6qAUCc3Cb0?usp=drive_link"
+        },
+        {
+          "id": "04-007",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】EPHHK-小學數學新思維 第二版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1IDtzzH_l1pK4UEN92HoyUXfRIWa1B0Pw?usp=drive_link"
+        },
+        {
+          "id": "04-008",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】High Performance Math系列教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1mef5XVl-GeAgGHl8CL9z-KTHnz-j7ecT?usp=drive_link"
+        },
+        {
+          "id": "04-009",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】Modern Primary Mathematics (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/12DmvagDPwKTaOT1gDWrIg_mmOMvJ1PEY?usp=drive_link"
+        },
+        {
+          "id": "04-010",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】Primary Mathematic in Focus (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Z59Fm-NbP6i-uI6kQvFVU0EbLp9SKgxw?usp=drive_link"
+        },
+        {
+          "id": "04-011",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】名創小學數學（双语版本）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/18NqXD81wlIid0-VY1vsKgdLqf5ijMgla?usp=drive_link"
+        },
+        {
+          "id": "04-012",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】小學數學與生活",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/198WS509_DKBGuVyqt733DVNt-yFNl6vk?usp=drive_link"
+        },
+        {
+          "id": "04-013",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】樂在牛津小學數學",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/15C8MyJAnbwfk0uzmGqfGU48uM7Goer42?usp=drive_link"
+        },
+        {
+          "id": "04-014",
+          "path": [
+            "小学教材",
+            "数学"
+          ],
+          "name": "【数学科】現代小學數學  第二版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1spbnLYfUavALABjE_-uL-NZ7KGXY6vz5?usp=drive_link"
+        },
+        {
+          "id": "04-015",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "Oxford Reading Wonderland",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1_FS3Kur00JIzdURuMlB9NYxKG9tCwWuQ?usp=drive_link"
+        },
+        {
+          "id": "04-016",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Lighthouse-EPHHK",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1J_cbWO4pTcX3O80FBL8iGVPu3KPshZbL?usp=drive_link"
+        },
+        {
+          "id": "04-017",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Living Oxford English",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1QE_UTmE6PcmKd1ArxSkD8Sd2oBvOyWyp?usp=drive_link"
+        },
+        {
+          "id": "04-018",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Longman Elect",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1MElzsY5YFbi-lD4g-CEdMvRgYJXEzhqo?usp=drive_link"
+        },
+        {
+          "id": "04-019",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Longman Leap",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/16KogNxlSYKx6HNOrqUT8xAfqL1EUjfBA?usp=drive_link"
+        },
+        {
+          "id": "04-020",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Longman Welcome to English Gold",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ldm0sR2q382tzmkZ6kgW9NgSoiHeAMbe?usp=drive_link"
+        },
+        {
+          "id": "04-021",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Oxford Discover",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Nhkryv1sq8PS2c8FfxEpG_2h37R4ZzTx?usp=drive_link"
+        },
+        {
+          "id": "04-022",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】Oxford Ready",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1l79pqk9NM7-h-x-namHASjZJEU3bAmdA?usp=drive_link"
+        },
+        {
+          "id": "04-023",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】longman Express",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1OCgpmvLaeMAe4DNGGFPOrCW2ZU3zqd7w?usp=drive_link"
+        },
+        {
+          "id": "04-024",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】启思&播道小学所用教材 Big English Plus",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1DNgGl5SrQ3JJplHc5zyCKVVusAlvbZu6?usp=drive_link"
+        },
+        {
+          "id": "04-025",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】美版牛津友邻少儿英语电子版American Family and Friends第二版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1msaNADCkvOPdUo1IcKdOHLyEijB0vFoQ?usp=drive_link"
+        },
+        {
+          "id": "04-026",
+          "path": [
+            "小学教材",
+            "英语"
+          ],
+          "name": "【英文科】英版牛津友邻少儿英语电子版American Family and Friends第二版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1rEvo8e3ZoRz0-_EPlk4sicGeK42XFhxB?usp=drive_link"
+        },
+        {
+          "id": "04-027",
+          "path": [
+            "初中教材",
+            "世界历史"
+          ],
+          "name": "【西史双语】Aristro-雅集出版社西史教材 历史旅程新课题系列",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1QakvWQrJqArq_pWD-R_vu6DjDN5eeNz4?usp=drive_link"
+        },
+        {
+          "id": "04-028",
+          "path": [
+            "初中教材",
+            "中国历史"
+          ],
+          "name": "【中史教材】Aristo-新編中國史旅程",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1A8FRwuWy_SY7p8HCdwwDhcqnCIYQ3_Pb?usp=drive_link"
+        },
+        {
+          "id": "04-029",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】HKEP教图初中中国语文",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1DO0GGXTSHGrccSURZyUOc1vS5iD26dTP?usp=drive_link"
+        },
+        {
+          "id": "04-030",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】初中互動中國語文 Pearson",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1RNheBZbCb_2-07O_IyvemTcUhfwzt7OT?usp=drive_link"
+        },
+        {
+          "id": "04-031",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】启思-啟思中國語文 (第五版)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1GvD1-hil2Gjt2fBF65GvPVDtMNnQeUdf?usp=drive_link"
+        },
+        {
+          "id": "04-032",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】启思-啟思中國語文 (第四版)",
+          "note": "备注：同一父目录存在同名教材文件夹，保留独立链接。",
+          "url": "https://drive.google.com/drive/folders/1_cNJqZzo1IlK7HaenMVRKtpGxD_LZxiA?usp=drive_link"
+        },
+        {
+          "id": "04-033",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】启思-啟思中國語文 (第四版)",
+          "note": "备注：同一父目录存在同名教材文件夹，保留独立链接。",
+          "url": "https://drive.google.com/drive/folders/1l0CJ8aYHu63NW9Y7Rv6AsyALGJSqk9B4?usp=drive_link"
+        },
+        {
+          "id": "04-034",
+          "path": [
+            "初中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】启思-啟思生活中國語文 (第四版)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1myjx6JG6phoSrQXW2P8sePrtEUYWnScF?usp=drive_link"
+        },
+        {
+          "id": "04-035",
+          "path": [
+            "初中教材",
+            "地理"
+          ],
+          "name": "【地理英文】Interactive Geography",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1yTSuWE-Z-BB6PSy02jwsxMfg7OoWc8bZ?usp=drive_link"
+        },
+        {
+          "id": "04-036",
+          "path": [
+            "初中教材",
+            "地理"
+          ],
+          "name": "【地理英文】Junior Secondary Exploring Geography (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1I0gu6lTDP7W15y0zDiteO4SjcfzbDQ86?usp=drive_link"
+        },
+        {
+          "id": "04-037",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学中数】Oxford-初中新世代數學（第二版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1TiAxWtfFXjiFi2c73L-sJSG-7uTNanSy?usp=drive_link"
+        },
+        {
+          "id": "04-038",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Chung Tai 中大出版社-新高效数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1AXxf-ICSyMN2cAbF9rPvP2_jTiIEobNh?usp=drive_link"
+        },
+        {
+          "id": "04-039",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学双语】EPHHK-教育出版社数学新领域",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1wUntBJVySSLpL2LD_lL0nUHRKEo7qEq7?usp=drive_link"
+        },
+        {
+          "id": "04-040",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学双语】EPHHK-數學新思維Mathematics in Focus",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1VIQYoRaKXnzEUWNWZuS90EgjexCrl9a6?usp=drive_link"
+        },
+        {
+          "id": "04-041",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学双语】HKEP-教育图书出版社教图创思数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1gioPBb-jbUjowwNWosWoSPYeVrMXXXJg?usp=drive_link"
+        },
+        {
+          "id": "04-042",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Pearson-初中数学与生活",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1dl7TZtmNDdBt7mluorPg05Iqcp7vM0uh?usp=drive_link"
+        },
+        {
+          "id": "04-043",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学英数】Modern-Modern Secondary Mathematics",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1PlqmiHdGc_fpgoOV4nuOzKEp_xjuDJtP?usp=drive_link"
+        },
+        {
+          "id": "04-044",
+          "path": [
+            "初中教材",
+            "数学"
+          ],
+          "name": "【数学英数】Oxford-Junior Secondary New Century Mathematics (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/13i5SPDg2dXrXClQnx6FvzHCcOkyQGGct?usp=drive_link"
+        },
+        {
+          "id": "04-045",
+          "path": [
+            "初中教材",
+            "科学"
+          ],
+          "name": "【科学双语】Aristro-雅集出版社科学教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1XwLlae83gqU4yrjPC49vMl3uUUxfvj4b?usp=drive_link"
+        },
+        {
+          "id": "04-046",
+          "path": [
+            "初中教材",
+            "科学"
+          ],
+          "name": "【科学双语】Oxford-牛津出版社新编基础科学教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1gRRwHmvqRwUBb67an9t2QyIhBnhPB4BB?usp=drive_link"
+        },
+        {
+          "id": "04-047",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "Oxford Advanced Thematic Anthology",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/11azeNk1yVakKNjXdVPSCOFfVLlYQcrx4?usp=drive_link"
+        },
+        {
+          "id": "04-048",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Aristo-Sprint",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1rZPhQBsAGLRPdCVtFKP0N1P7ri4hHvqW?usp=drive_link"
+        },
+        {
+          "id": "04-049",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Aristro-Developing Skills - Grammar & Usage",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1d9AJgJqlGyPBs-SoruYbITjG1Lhj5EkM?usp=drive_link"
+        },
+        {
+          "id": "04-050",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Aristro-Developing Skills Connect",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1BW8VP3mM5vrFcURRxcNGnZPFcB_W31ru?usp=drive_link"
+        },
+        {
+          "id": "04-051",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Longman English Spark",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1LNPOEKxmvYRoOVLKvVW0MjXQiYTV-dsT?usp=drive_link"
+        },
+        {
+          "id": "04-052",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】New Headway Pre-Intermediate（仅有中一部分）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1XR8IjhclSWYNyQkmedKsCP8YOuegt_Rq?usp=drive_link"
+        },
+        {
+          "id": "04-053",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Oxford English (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1XzniSK2vcU2gpSFWsUgon7lsmWcZPHyQ?usp=drive_link"
+        },
+        {
+          "id": "04-054",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Oxford English Forward",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1MdlJvY-eVTrS902jUbrj7pYZkLzuSDoc?usp=drive_link"
+        },
+        {
+          "id": "04-055",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Oxford-New Treasure Plus (Second Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1TYNTbuwpzPmdvsLipkbhubM4uZOkdbgy?usp=drive_link"
+        },
+        {
+          "id": "04-056",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pearson-Focus 2ed Edition",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Q4kQdca87rdpkthdw_8aNe3ROZCM3T_l?usp=drive_link"
+        },
+        {
+          "id": "04-057",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pearson-Longman Edge 第一版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1edyZvoZJNqmvnnSoIyoCCpY7AoWH7cSN?usp=drive_link"
+        },
+        {
+          "id": "04-058",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pearson-第二版EDGE初中英文全套",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1dpR0nEj2axmBLh47V5elUcQW0jOe4IDY?usp=drive_link"
+        },
+        {
+          "id": "04-059",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pilot-Performance Plus",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1RmKIpOTW4-IKl39-MF3xZ4FlX0MdMhsF?usp=drive_link"
+        },
+        {
+          "id": "04-060",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】国家地理 Grammar Explorer",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/14khRTtPLvNCRtJeJjM6skXvIPdwzHjD1?usp=drive_link"
+        },
+        {
+          "id": "04-061",
+          "path": [
+            "初中教材",
+            "英语"
+          ],
+          "name": "【英文教材】国家地理Life全套第三版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1y8nogS1ehqLGv47iDIjuoo09tt_OcAHp?usp=drive_link"
+        },
+        {
+          "id": "04-062",
+          "path": [
+            "高中教材",
+            "中国历史"
+          ],
+          "name": "新探索中國史 齡記",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1O1LVoZ9HS7uVMfCAroAn8oyMm7hdhc7y?usp=drive_link"
+        },
+        {
+          "id": "04-063",
+          "path": [
+            "高中教材",
+            "中国历史"
+          ],
+          "name": "現代  高中中國歷史",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1oCcNJauyhwCUu-YU4rzbH5ULEqLEcSmi?usp=drive_link"
+        },
+        {
+          "id": "04-064",
+          "path": [
+            "高中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】啟思新高中中國語文(第二版)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Ap5Ug6pgjdIy--hNo249zg1QUDGa2Jdm?usp=drive_link"
+        },
+        {
+          "id": "04-065",
+          "path": [
+            "高中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】新高中中國語文新編 (第二版)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1vzJjwbyETuI3_fdCLmIxOuGGg5T9ly7y?usp=drive_link"
+        },
+        {
+          "id": "04-066",
+          "path": [
+            "高中教材",
+            "中国语文"
+          ],
+          "name": "【中文教材】高中互動中國語文 Pearson",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1FWgG3mxzLc5lxnbEGf4v0wReUToOCfky?usp=drive_link"
+        },
+        {
+          "id": "04-067",
+          "path": [
+            "高中教材",
+            "企业、会计与财务概论"
+          ],
+          "name": "【BAFS双语】HKEP 新視野 企業,會計與財務概論",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ost7bZxAJBKOSBVP_uCnVZmm-_avo8uz?usp=drive_link"
+        },
+        {
+          "id": "04-068",
+          "path": [
+            "高中教材",
+            "企业、会计与财务概论"
+          ],
+          "name": "【BAFS双语】Pearson 新高中企業、會計與財務概論（第二版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1DxGqI6vDFaGmpUkMPh6XdlF4A7IO7vKE?usp=drive_link"
+        },
+        {
+          "id": "04-069",
+          "path": [
+            "高中教材",
+            "化学"
+          ],
+          "name": "Jing Kung Mastering Chemistry",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1jL6XqE6S6TuV6xtbcORxoSYOSA3TAuaW?usp=drive_link"
+        },
+        {
+          "id": "04-070",
+          "path": [
+            "高中教材",
+            "化学"
+          ],
+          "name": "【化学中文】Jing Kung-精工新高中达思化学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1q-bWXoQqU6xD2X2tOj-y0CqpiMZNe_qT?usp=drive_link"
+        },
+        {
+          "id": "04-071",
+          "path": [
+            "高中教材",
+            "化学"
+          ],
+          "name": "【化学双语】Aristo-雅集出版社香港中学文凭现代化学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Yb3TaY70uZg0-3IC11jRKnB5xktGOvBv?usp=drive_link"
+        },
+        {
+          "id": "04-072",
+          "path": [
+            "高中教材",
+            "地理"
+          ],
+          "name": "【地理双语】Oxford-牛津高中活学地理（第三版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1jKTU6mXaByQg4sILVHNBQb0xY_-bsciE?usp=drive_link"
+        },
+        {
+          "id": "04-073",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "DSE M2资料合集",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1gLrfSMs54QF8h8RJA8mmLV_q0nrl-zKS?usp=drive_link"
+        },
+        {
+          "id": "04-074",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "Mathematics in Focus",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1fejRNVqeR5ZzcmIevrcgVrzNSOYIklln?usp=drive_link"
+        },
+        {
+          "id": "04-075",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学中数】EPHHK-教育出版社數學新思維教材Mathematics in Focus",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1cI7FjUpCIffHpOa-ZOc-LfNI5vk7CgMf?usp=drive_link"
+        },
+        {
+          "id": "04-076",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Chung Tai-中大出版社新高效数学（M1&M2）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1H2s5NEBc3ig8podpT5asSGdW6GfIV2fI?usp=drive_link"
+        },
+        {
+          "id": "04-077",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Oxford-牛津出版社新世代数学必修部分",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Vm4A71DRGhuzDTmXOmE5ZDmR17f5SqBc?usp=drive_link"
+        },
+        {
+          "id": "04-078",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Oxford-牛津出版社新世代数学（M1&M2）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1HlHlKIWlBwzeKxfni4JPmSNFSbDa8Jwk?usp=drive_link"
+        },
+        {
+          "id": "04-079",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Pearson-培生出版社香港中學文憑數學與生活",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1lDQEQ_mJeG4H_nZnjf1_fPe-jYGCy_NO?usp=drive_link"
+        },
+        {
+          "id": "04-080",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学双语】Pearson-培生出版社香港中學文憑活用數學",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1jKEf_RKgRxxu5Mmz4OTQDsnW8Z2eMBUk?usp=drive_link"
+        },
+        {
+          "id": "04-081",
+          "path": [
+            "高中教材",
+            "数学"
+          ],
+          "name": "【数学英数】Chung Tai-中大出版社新高效數學 Effective Learning Mathematics",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1yr5MKZCliMQhz2FLhRJ7mEajbqZFt2up?usp=drive_link"
+        },
+        {
+          "id": "04-082",
+          "path": [
+            "高中教材",
+            "物理"
+          ],
+          "name": "【物理双语】Oxford-牛津出版社高中物理教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ygAorUbk9hM3joZot_4KUXcOMzC96acA?usp=drive_link"
+        },
+        {
+          "id": "04-083",
+          "path": [
+            "高中教材",
+            "物理"
+          ],
+          "name": "【物理双语】Pearson-培生出版社高中物理教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1bxiyAYB7fm-Fn0j_wDYTIzpexlvDgMiW?usp=drive_link"
+        },
+        {
+          "id": "04-084",
+          "path": [
+            "高中教材",
+            "生物"
+          ],
+          "name": "【生物双语】Aristo-雅集出版社香港中学文凭生物学教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1yVYKPtVwo6FAkeQYAVv-zX1f4lmPn2A_?usp=drive_link"
+        },
+        {
+          "id": "04-085",
+          "path": [
+            "高中教材",
+            "生物"
+          ],
+          "name": "【生物双语】Oxford-牛津新高中基礎生物學第三版",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1xw2sJ6HrpDZ55wHQo8Qt4KbVNgoxaCsV?usp=drive_link"
+        },
+        {
+          "id": "04-086",
+          "path": [
+            "高中教材",
+            "经济"
+          ],
+          "name": "NSS Exploring Economics (3rd Ed)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1aPoNrZnCucMnldtE4zfIOZBFx0m79SHp?usp=drive_link"
+        },
+        {
+          "id": "04-087",
+          "path": [
+            "高中教材",
+            "经济"
+          ],
+          "name": "【经济双语】Aristo-香港中学文凭经济学与生活（第二版）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1YtqvVjJ1hzS4UkVknZl4AJwm648ygnDC?usp=drive_link"
+        },
+        {
+          "id": "04-088",
+          "path": [
+            "高中教材",
+            "经济"
+          ],
+          "name": "香港高中经济",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1akJjwZQirkblmtx1slTq6cOEWCVohm0T?usp=drive_link"
+        },
+        {
+          "id": "04-089",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "CEP Core (2nd edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1F4f2pXeGPx8EjMRSRN0zqArGK9L0jAWz?usp=drive_link"
+        },
+        {
+          "id": "04-090",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "CEP Edge (3rd edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1ikfRAICZniDMwdZjznZJ9iwX6S5UU0P9?usp=drive_link"
+        },
+        {
+          "id": "04-091",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "Oxford English Forward Paper 4",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1CQxAeO037HZt9t57jpQGrSVWKgkRrsEc?usp=drive_link"
+        },
+        {
+          "id": "04-092",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Aristro-雅集DEVELOPING SKILLS for HKDSE系列",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1SXCyTIQtbk1rsmisnSM8n6Mg-hDP2YhP?usp=drive_link"
+        },
+        {
+          "id": "04-093",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】HKEP-Reading Explorer-Theme-based Anthology",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1kO3CXGM-raUb7si20w_sPo-MJMzONnvV?usp=drive_link"
+        },
+        {
+          "id": "04-094",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Oxford Advanced Exam Skills (Third Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1a2er1aDcAEWp5TzGZKUNm526NKlmFHoK?usp=drive_link"
+        },
+        {
+          "id": "04-095",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Oxford Essential Exam Skills (Third Edition)",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1PA9kQ5P1vvTJGL4AP8QmtawhND2C6v3k?usp=drive_link"
+        },
+        {
+          "id": "04-096",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pilot-Performance Plus for the HKDSE（P1-P3）",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1FQaPHxKXInAM7zeUwop1dgL6R-DNhdMe?usp=drive_link"
+        },
+        {
+          "id": "04-097",
+          "path": [
+            "高中教材",
+            "英语"
+          ],
+          "name": "【英文教材】Pilot-Social Issues Made Essay 2nd Edition",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1sZW0IsPLnGwyS0lrogyz4O_88t2Ho6dA?usp=drive_link"
+        },
+        {
+          "id": "04-098",
+          "path": [
+            "高中教材",
+            "计算机与信息技术"
+          ],
+          "name": "ict资讯及通讯科技",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/14aIMvtoVtBKWS2PdAAGzo3dAPYEpW57S?usp=drive_link"
+        },
+        {
+          "id": "04-099",
+          "path": [
+            "高中教材",
+            "计算机与信息技术"
+          ],
+          "name": "【ICT中文】Modern-现代出版社高中咨讯及通讯科技",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1F8rWyz3zFeZeIQD9MHGDgQibjHwZr7OJ?usp=drive_link"
+        },
+        {
+          "id": "04-100",
+          "path": [
+            "高中教材",
+            "计算机与信息技术"
+          ],
+          "name": "【ICT中文】明德资讯及通讯科技",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1B5iLYdgOCWXvpxFuQjN3e-dsoc8MnVm2?usp=drive_link"
+        },
+        {
+          "id": "04-101",
+          "path": [
+            "DSE内部测评"
+          ],
+          "name": "【DSE方向】新版测评卷",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1fR-VzkFmQhj7sgsG7-pZocSmHLj2Pk2x?usp=drive_link"
+        },
+        {
+          "id": "04-102",
+          "path": [
+            "中小学中文补充教学资料"
+          ],
+          "name": "【DSE资源包】中小阶段中文科材料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1VJC9fPgs3dm8onmldfkKa_0xXY6Cv8Pb?usp=drive_link"
+        },
+        {
+          "id": "04-103",
+          "path": [
+            "公用学科补充资料"
+          ],
+          "name": "【只给老师】中学各科衔接练习册",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1_wHn0UFQcIiyp6nZLoMl-VjbplTMfvuk?usp=drive_link"
+        },
+        {
+          "id": "04-104",
+          "path": [
+            "公用学科补充资料"
+          ],
+          "name": "【可发家长】中文及文言文资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/16tJquUqUhhg4_45X4RB9uJsn5mxyBwSW?usp=drive_link"
+        },
+        {
+          "id": "04-105",
+          "path": [
+            "初中数学课包"
+          ],
+          "name": "【F1-F3】数学备考课包",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1GGkmXwwz5bns2zP-BwQ6Di4PLY1GPsqz?usp=drive_link"
+        },
+        {
+          "id": "04-106",
+          "path": [
+            "学前衔接及小学数学课包"
+          ],
+          "name": "【K3-P6】数学笔试备考课包",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1LGnbdjt6OsD70Ot0WOUKwV4CxnW_0pxu?usp=drive_link"
+        },
+        {
+          "id": "04-107",
+          "path": [
+            "学前衔接及小学英文课包"
+          ],
+          "name": "【K3-P6】小学英文备考课包",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1h7JKrb1_TdIHWqQxZ5VCQP05ViuPDg8U?usp=drive_link"
+        },
+        {
+          "id": "04-108",
+          "path": [
+            "英文教研材料"
+          ],
+          "name": "【DSE体系】英文教研材料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1helhWJFRtgg5R3J5qZATWC_UMFeaM7gN?usp=drive_link"
+        },
+        {
+          "id": "04-109",
+          "path": [
+            "英文教研材料"
+          ],
+          "name": "英文教研材料入口",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1lfvZRfoTEzf0DpPkqwuKLHGjlBP7sK_F?usp=drive_link"
+        },
+        {
+          "id": "04-110",
+          "path": [
+            "高中数学课包"
+          ],
+          "name": "【F4-F6】必修部分高中新世代数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1xhWKwy5wRThZZR_G07ZQYimrNJ-aDhhw?usp=drive_link"
+        },
+        {
+          "id": "04-111",
+          "path": [
+            "高中补充教学资料"
+          ],
+          "name": "【DSE资源包】各科出版社以外材料汇总",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1xuvxU24hGyQGLgRAlNCIxMGjEBEZeKeF?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "title": "【国际体系】新加坡教学内容",
+      "description": "新加坡数学及英文教学资料",
+      "resources": [
+        {
+          "id": "05-001",
+          "path": [
+            "数学教学"
+          ],
+          "name": "【新加坡国际】新加坡数学",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1HU7SP1o_Ji_5KLmvh96HEMsSWsEbrrZ_?usp=drive_link"
+        },
+        {
+          "id": "05-002",
+          "path": [
+            "英文教学"
+          ],
+          "name": "【新加坡国际】新加坡英文",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/153DMBY1lnZ_tzxT0dXHm0b1Tp2snQeXS?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "title": "【语培考试】英语考试材料",
+      "description": "雅思托福小托福及其他英语考试",
+      "resources": [
+        {
+          "id": "06-001",
+          "path": [
+            "Aptis"
+          ],
+          "name": "15. 普思Aptis",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/11PLVciz_HtbFsKQYQ9BC5y6hFAdGziUj?usp=drive_link"
+        },
+        {
+          "id": "06-002",
+          "path": [
+            "KET PET FCE"
+          ],
+          "name": "【英文考试】KET/PET/FCE材料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1R7BWbWjmvauhP0-erlHDVqgRiyy9Jamu?usp=drive_link"
+        },
+        {
+          "id": "06-003",
+          "path": [
+            "小托福"
+          ],
+          "name": "【英文考试】40课时Tofel Junior Standard 小班课课包",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/18b8sX9BXOdQ-MWtwQ0DAkUo_53aBGxqK?usp=drive_link"
+        },
+        {
+          "id": "06-004",
+          "path": [
+            "托福"
+          ],
+          "name": "【英文考试】新版托福全科课件",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1O6qceInxr8fu6aCQRykBrfAtvzWpvArV?usp=drive_link"
+        },
+        {
+          "id": "06-005",
+          "path": [
+            "雅思"
+          ],
+          "name": "【英文考试】雅思材料汇总",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/10DmYE9FijJ7NMZdZAK_Cul4D_8lD6s4D?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "title": "【公用材料】词测及各科词汇表",
+      "description": "词汇测评及教学词汇参考",
+      "resources": [
+        {
+          "id": "07-001",
+          "path": [
+            "分年级词汇测评"
+          ],
+          "name": "【对内资料】分年级英文词测表",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1io4n9nZCOyHCVV-azjK3krfqnZo6KVaR?usp=drive_link"
+        },
+        {
+          "id": "07-002",
+          "path": [
+            "词汇参考"
+          ],
+          "name": "【可发家长】英文授课学科词汇表",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1KQP3ocr-BsZ7GFCTfT3eN_ddGBDfSvtF?usp=drive_link"
+        },
+        {
+          "id": "07-003",
+          "path": [
+            "词汇参考"
+          ],
+          "name": "【可发家长】英文词汇表",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1_pBbuNBDoXx7RHuqi_yTtNnPfR3cqhYU?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "title": "【国际体系】美系及AP教学材料",
+      "description": "AP课程及SAT备考材料",
+      "resources": [
+        {
+          "id": "08-001",
+          "path": [
+            "AP教学材料"
+          ],
+          "name": "【国际体系】美系AP教材资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/166Ug21vBGOctrukVUob-fHFX3PIIvjs3?usp=drive_link"
+        },
+        {
+          "id": "08-002",
+          "path": [
+            "SAT教学与备考"
+          ],
+          "name": "【国际体系】美系SAT考试资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1hUJxfUaJGFeBHdmNcu0PZRiCLXrlknIp?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "title": "【DSE体系】学校资料及真题卷",
+      "description": "香港学校试卷书单面经及考经",
+      "resources": [
+        {
+          "id": "09-001",
+          "path": [
+            "中学学校真题"
+          ],
+          "name": "【DSE中学阶段】香港真题题库",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1R3FR-IR6fhlh8RkwhPY003nydSaSJDAk?usp=drive_link"
+        },
+        {
+          "id": "09-002",
+          "path": [
+            "中小学学校试卷"
+          ],
+          "name": "【DSE学校真题】中学&小学试卷汇总",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1NLVIcLl_9YB9gXWIhIRbJ8Zf8KxFO0Oi?usp=drive_link"
+        },
+        {
+          "id": "09-003",
+          "path": [
+            "学校书单"
+          ],
+          "name": "【对内资料】香港学校书单",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1YSmMrKMScGRKg0nagFuNRzEqhZn3eDjo?usp=drive_link"
+        },
+        {
+          "id": "09-004",
+          "path": [
+            "学校面经及考经"
+          ],
+          "name": "【对内资料】面经&考经收集",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1tFyT394SN01XlP4zw-ES4Hnkx3zhXxzK?usp=drive_link"
+        },
+        {
+          "id": "09-005",
+          "path": [
+            "小学学校真题"
+          ],
+          "name": "【DSE小学阶段】香港真题题库",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1y-8Nus8B-Sp8FEizRf9WKbaLWAVXKRVS?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "【国际体系】英系基础课程材料",
+      "description": "KS1至KS3基础课程资料",
+      "resources": [
+        {
+          "id": "10-001",
+          "path": [
+            "KS1至KS3"
+          ],
+          "name": "【国际体系】英系KS1-KS3资料",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1Ah7tHnyaB2XgViLZfatp8NnK0lnLnPAz?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "title": "【公用材料】通用语言教学材料",
+      "description": "通用英文教材粤语及课程大纲",
+      "resources": [
+        {
+          "id": "11-001",
+          "path": [
+            "粤语教学"
+          ],
+          "name": "粤语课件及教材",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1QksTApqP3JDfEbYZzIhEQyvSSi0qonEd?usp=drive_link"
+        },
+        {
+          "id": "11-002",
+          "path": [
+            "通用英文教材"
+          ],
+          "name": "【CEFR教材】Gateway to the world A1-C1",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/10M21mHLTbqyjULNmiG7hXZVEWh5RlAdB?usp=drive_link"
+        },
+        {
+          "id": "11-003",
+          "path": [
+            "通用英文课程大纲"
+          ],
+          "name": "【对内资料】授课大纲汇总",
+          "note": "备注：未标明课程体系，先放通用语言教学。",
+          "url": "https://drive.google.com/drive/folders/1n2EQ40M7JkppBXs4CI3Fv_yWqssdwexy?usp=drive_link"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "【公用材料】内部测评及面试教学",
+      "description": "内部口笔测与面试教学材料",
+      "resources": [
+        {
+          "id": "12-001",
+          "path": [
+            "内部口测及笔测"
+          ],
+          "name": "【对内资料】口测及笔测",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1sfy9VtsgO3CPpGKVpR_WxxdxXpmRJejA?usp=drive_link"
+        },
+        {
+          "id": "12-002",
+          "path": [
+            "面试教学材料"
+          ],
+          "name": "【对内资料】面试材料汇总",
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/15f_8uLSiEFXBuLYN6PtQf2KwW92PsA1F?usp=drive_link"
+        }
+      ]
+    }
+  ],
+  "support": [
+    {
+      "name": "【对内资料】便利性资料",
+      "url": "https://drive.google.com/drive/folders/1-vPCm0IP-4kRcdb01xLZJ1zJy0cXAnF0?usp=drive_link"
+    },
+    {
+      "name": "【对外】开课礼包",
+      "url": "https://drive.google.com/drive/folders/1vEYfskZMLAKCAikSVqK1UF-Tl2nmf5JH?usp=drive_link"
+    },
+    {
+      "name": "【可发家长】計算機程式",
+      "url": "https://drive.google.com/drive/folders/1Owdnq9m7GgAdhe2Usdn11Qr4gAJNgQ9s?usp=drive_link"
+    },
+    {
+      "name": "【内部材料】顾问端口资料",
+      "url": "https://drive.google.com/drive/folders/13U5L8pb-iRdD_pwzjwEpEtbxzAVj2XW0?usp=drive_link"
+    }
+  ]
+}

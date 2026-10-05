@@ -1,0 +1,15 @@
+Coopanion 9e7b03caf60828aa23f3d7ad7a355c0d4f4a9efc
+https://github.com/Pal-AI-Lab/Coopanion
+AGPL-3.0-or-later (artwork: see THIRD_PARTY_NOTICES.txt).
+Modified 2026-10-05: inertial drag, spinning release/landing, dialogue and website integration.
+Runtime source: web/pet-core.js, web/rig/rig.js, web/whale/figure.js, web/speech-script.js
+Integration source:
+source/WhaleAssistant.vue.txt
+source/whale-assistant-adapter.js.txt
+source/whale-browser-chat.js.txt
+source/whale-drag-inertia.js.txt
+source/whale-interaction-lines.js.txt
+source/whale-persona.js.txt
+source/whale-speech-player.js.txt
+source/package.json.txt
+Build: npm ci; VITE_TEACHER_BROWSER=true npm run build

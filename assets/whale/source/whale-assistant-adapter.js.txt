@@ -1,0 +1,23 @@
+// Replace the adapter at integration time; never put a model API key in this module.
+export function createLocalResourceAdapter(catalog) {
+  return async ({message, signal}) => {
+    await new Promise((resolve,reject)=>{const t=setTimeout(resolve,550);signal?.addEventListener('abort',()=>{clearTimeout(t);reject(new DOMException('Aborted','AbortError'))},{once:true})})
+    const tokens=message.toLowerCase().match(/[a-z0-9]+|[\u4e00-\u9fff]{1,}/g)||[]
+    const hints=['数学','英文','英语','中文','语文','物理','化学','生物','爱德思','新加坡','教材','真题','面试']
+    const terms=[...new Set([...tokens,...hints.filter(x=>message.includes(x))])].filter(x=>!['教材','资料','在哪','哪里'].includes(x))
+    const ranked=catalog.categories.flatMap(c=>c.resources.map(r=>({...r,category:c.title}))).map(r=>{
+      const text=[r.name,...r.path,r.category].join(' ').toLowerCase()
+      const required=[...hints.filter(t=>!['教材','真题','面试'].includes(t)&&message.includes(t)),...['igcse','alevel','ib','dse'].filter(t=>message.toLowerCase().includes(t))]; return {...r,score:required.every(t=>(['igcse','alevel'].includes(t)?[r.name,...r.path].join(' ').toLowerCase():text).includes(t))?terms.reduce((n,t)=>n+(text.includes(t)?t.length:0),0):0}
+    }).filter(r=>r.score>0).sort((a,b)=>b.score-a.score).slice(0,5)
+    return {script:ranked.length?'【开心,招手】找到相关资料啦。<点头>下面是本地目录中匹配的入口，点击即可打开网盘。':'【思考】暂时没有匹配到资源。<张望>试试课程体系加科目，例如“IGCSE 爱德思 数学”。',text:ranked.length?'在本地目录中找到这些相关入口，点击即可打开网盘。':'暂时没有匹配到资源。试试课程体系＋科目，例如“IGCSE 爱德思 数学”。',resources:ranked.map(({id,name,url})=>({id,name,url})),state:ranked.length?'happy':'idle'}
+  }
+}
+// Response: {text, script?: "【开心】回答<点头>正文", resources:[{id}], state}. Only explicit script fields parse action markers.
+// Future server adapter contract: authenticated server retrieves catalog and calls model.
+export function createApiAdapter(endpoint) {
+  return async ({message,category,signal})=>{
+    const response=await fetch(endpoint,{method:'POST',credentials:'include',signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({message,context:{category}})})
+    if(!response.ok)throw new Error('暂时无法连接资料助手，请稍后再试。')
+    return response.json()
+  }
+}

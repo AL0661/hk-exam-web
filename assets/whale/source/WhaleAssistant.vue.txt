@@ -1,0 +1,278 @@
+<script setup>
+import {withBase} from 'vitepress'
+import {ref,computed,onMounted,onBeforeUnmount} from 'vue'
+import {createInteractionPicker,createInteractionMemory} from './whale-interaction-lines.js'
+import {createLocalResourceAdapter} from './whale-assistant-adapter.js'
+import {createDragInertia,moveDragInertia,stepDragInertia,releaseDragInertia} from './whale-drag-inertia.js'
+import {playSpeech,speechText,abortableDelay} from './whale-speech-player.js'
+const browserMode=import.meta.env.VITE_TEACHER_BROWSER==='true'
+const browserApiKey=ref('')
+const props=defineProps({catalog:Object,category:String,adapter:Function})
+const opened=ref(false),minimized=ref(false),query=ref(''),pending=ref(false),status=ref('正在加载鲸鱼娘…'),loaded=ref(false)
+const answer=ref('你好，我是鲸鱼娘。告诉我课程体系和科目，我来帮你找资料。'),results=ref([])
+const stage=ref(),pet=ref(),shadow=ref(),fx=ref()
+const dock=ref(),position=ref(null),dragging=ref(false)
+const viewport=ref({width:1280,height:800}),motions=ref([]),expressions=ref([]),soundOn=ref(false),roaming=ref(true),throwing=ref(false)
+const aiInput=ref(''),aiPending=ref(false),chatMessages=ref([]),aiError=ref('')
+const attachments=ref([]),attachmentInput=ref(),readingFiles=ref(false),attachmentNotes=ref([])
+let fileGeneration=0
+let aiRequest, speechSink=value=>answer.value=value
+const interactionOn=ref(false),interactionText=ref('')
+const pickInteraction=createInteractionPicker(),interactionMemory=createInteractionMemory()
+let interactionClearTimer,interactionLast=0,interactionLastEvent='',spinRecorded=false,interactionFlight=false
+function stopInteraction(){clearTimeout(interactionClearTimer);interactionText.value='';interactionLast=0;interactionLastEvent='';interactionFlight=false}
+function toggleInteraction(){interactionOn.value=!interactionOn.value;if(!interactionOn.value)stopInteraction()}
+function recordInteraction(event){
+  if(!interactionOn.value||dead||minimized.value||aiPending.value||pending.value||playing.value)return
+  const now=Date.now()
+  // Repeated head strokes should not replace the line on every pointer movement.
+  if(event===interactionLastEvent&&now-interactionLast<1800)return
+  const line=pickInteraction(event);if(!line)return
+  interactionLast=now;interactionLastEvent=event;interactionText.value=line;interactionMemory.add(event,line)
+  talkUntil=performance.now()+1800
+  clearTimeout(interactionClearTimer);interactionClearTimer=setTimeout(()=>interactionText.value='',8000)
+}
+function petEvent(type,data){
+  if(!interactionOn.value)return
+  if(type==='touch'&&data.kind==='grab')interactionFlight=true
+  if(type==='touch'&&['grab','pet','poke'].includes(data.kind))recordInteraction(data.kind)
+  if(type==='mode'&&data.mode==='release'&&interactionFlight)recordInteraction('launch')
+  if(type==='mode'&&data.mode==='land'&&interactionFlight){recordInteraction('land');interactionFlight=false}
+}
+function minimizePet(){closeChat();stopInteraction();minimized.value=true}
+const playing=ref(false),speechArea=ref('lookup')
+let sound,scriptParser,speechRequest,completeAnswer=''
+const actionTimes={stand:1200,jump:1200,hop:900,look:2700,turn:400,nod:800,shake:800,spin:800,sit:800,sleep:800,dizzy:3200,wave:1700,bow:1700,shiver:1900,flap:1500,dance:3400,walk:1800,run:1400}
+function stopSpeech(reveal=true){speechRequest?.abort();speechRequest=null;playing.value=false;talkUntil=0;if(reveal&&completeAnswer)speechSink(completeAnswer);ctl?.setThinking(false);ctl?.setListening(false)}
+function closeChat(){aiRequest?.abort();stopSpeech();opened.value=false}
+async function speechAction(id,signal){
+  if(!ctl||dragging.value)return 0
+  ctl.holdRoam(15)
+  while(ctl.busy()){await abortableDelay(80,signal)}
+  if(signal?.aborted)return 0
+  if(expressions.value.some(e=>e.id===id)){ctl.setExpr(id);return 900}
+  ctl.act(id);return actionTimes[id]||1000
+}
+async function say(response,sink=value=>answer.value=value,area='lookup'){
+  stopSpeech(false);speechSink=sink;speechArea.value=area
+  const beats=typeof response.script==='string'&&scriptParser?scriptParser.parseScript(response.script).beats:[{text:String(response.text||'没有返回回答。'),actions:[],anchors:[]}]
+  completeAnswer=speechText(beats)||String(response.text||'没有返回回答。')
+  if(!opened.value){sink(completeAnswer);return}
+  const controller=new AbortController();speechRequest=controller;playing.value=true
+  ctl?.setThinking(false);ctl?.setListening(false)
+  try{await playSpeech(beats,{signal:controller.signal,text:sink,action:id=>speechAction(id,controller.signal),talk:()=>{talkUntil=performance.now()+130;ctl?.holdRoam(2)},instant:matchMedia('(prefers-reduced-motion: reduce)').matches})}
+  catch(e){if(e.name!=='AbortError'){sink(completeAnswer);console.warn('Speech playback failed',e)}}
+  finally{if(speechRequest===controller){playing.value=false;speechRequest=null;talkUntil=0}}
+}
+const motionLabels={stand:'站立',jump:'跳跃',hop:'小跳',look:'张望',turn:'转身',nod:'点头',shake:'摇头',spin:'原版转圈',sit:'坐下',sleep:'睡觉',dizzy:'晕乎',walk:'走路',run:'跑步',wave:'招手',bow:'鞠躬',shiver:'发抖',flap:'扑腾',dance:'跳舞'}
+const chatPosition=computed(()=>{
+  const {width:w,height:h}=viewport.value,pw=w<=600?140:220,ph=pw+40
+  const left=position.value?w-position.value.right-pw:8
+  const bottom=position.value?.bottom??8
+  const panelWidth=Math.min(360,w-16),panelHeight=Math.min(520,h-16)
+  const beside=left+pw+12+panelWidth<=w-8?left+pw+12:left-panelWidth-12
+  return {left:Math.max(8,Math.min(beside,w-panelWidth-8))+'px',top:Math.max(8,Math.min(h-bottom-ph,h-panelHeight-8))+'px',maxHeight:panelHeight+'px'}
+})
+function act(name){stopSpeech();if(!ctl||dragging.value)return;ctl.holdRoam(6);ctl.setThinking(false);ctl.setListening(false);ctl.act(name)}
+function express(name){stopSpeech();if(!ctl||dragging.value)return;ctl.holdRoam(5);ctl.setExpr(name)}
+function toggleSound(){soundOn.value=!soundOn.value;sound?.set(soundOn.value);if(soundOn.value)sound?.unlock()}
+function toggleRoam(){roaming.value=!roaming.value;ctl?.setRoam(roaming.value?'free':'off')}
+function hoverPet(e){if(dragStart||!ctl)return;const box=stage.value.getBoundingClientRect();ctl.pointerMove({x:(e.clientX-box.left)*220/box.width,y:(e.clientY-box.top)*220/box.height})}
+
+let dragInertia=createDragInertia(),dragMoveTime=0
+let dragStart,skipClick=false,dockObserver,carryTimer
+function liftPet(){
+  if(!ctl)return
+  stopSpeech();clearTimeout(carryTimer);ctl.setThinking(false);ctl.act('stand')
+  const body=ctl.toStage(128,150)
+  ctl.pointerDown(body);ctl.pointerMove({x:body.x+12,y:body.y})
+  ctl.pointerMove({x:110,y:28})
+  spinRecorded=false;dragInertia=createDragInertia();dragMoveTime=performance.now();ctl.pet.dragFlustered=false;ctl.pet.tilt=0;ctl.pet.tiltV=0
+  status.value='被你拎起来啦～'
+}
+function releasePet(){
+  if(!ctl)return
+  // The website dock already follows the pointer: release within its local stage.
+  // Use the original bounded drop so the character cannot fly over page controls.
+  const released=releaseDragInertia(dragInertia);ctl.pet.tilt=released.degrees;ctl.pet.tiltV=released.velocity;ctl.pet.dragFlustered=false
+  if(throwing.value)ctl.pointerUp();else ctl.dropAt({x:110,y:28});ctl.pointerLeave()
+  ctl.setThinking(pending.value);status.value='轻点查资料 · 按住可拖动'
+}
+function previewCarry(){if(dragging.value)return;liftPet();carryTimer=setTimeout(releasePet,1800)}
+function clampPosition(right,bottom) {
+  const box=dock.value?.getBoundingClientRect();if(!box)return
+  position.value={right:Math.max(8,Math.min(right,document.documentElement.clientWidth-box.width-8)),bottom:Math.max(8,Math.min(bottom,document.documentElement.clientHeight-box.height-8))}
+}
+function fitDock(){viewport.value={width:document.documentElement.clientWidth,height:document.documentElement.clientHeight};if(position.value)clampPosition(position.value.right,position.value.bottom)}
+function startDrag(e){
+  if(e.button!==0||!e.isPrimary)return
+  const box=dock.value.getBoundingClientRect()
+  dragStart={compact:minimized.value,id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,right:document.documentElement.clientWidth-box.right,bottom:document.documentElement.clientHeight-box.bottom};skipClick=false
+  e.currentTarget.setPointerCapture(e.pointerId)
+}
+function moveDrag(e){
+  if(!dragStart||e.pointerId!==dragStart.id)return
+  const dx=e.clientX-dragStart.x,dy=e.clientY-dragStart.y
+  if(!dragging.value&&Math.hypot(dx,dy)<6)return
+  if(!dragStart.compact&&!dragging.value)liftPet()
+  else if(!dragStart.compact&&ctl){
+    const scale=220/stage.value.getBoundingClientRect().width
+    const sx=(e.clientX-dragStart.lastX)*scale,sy=(e.clientY-dragStart.lastY)*scale
+    const now=performance.now();moveDragInertia(dragInertia,sx,sy,(now-dragMoveTime)/1000);dragMoveTime=now
+    const held={dx:ctl.pet.dx,dy:ctl.pet.dy,x:ctl.pet.x}
+    ctl.pointerMove({x:110+sx,y:28+sy});ctl.shiftDrag(-sx,-sy)
+    Object.assign(ctl.pet,held)
+  }
+  dragStart.lastX=e.clientX;dragStart.lastY=e.clientY
+  dragging.value=true;skipClick=true;clampPosition(dragStart.right-dx,dragStart.bottom-dy)
+}
+function endDrag(e){if(!dragStart||e.pointerId!==dragStart.id)return;if(dragging.value&&!dragStart.compact)releasePet();dragStart=null;dragging.value=false;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId)}
+function restorePet(){if(skipClick){skipClick=false;return}minimized.value=false}
+function clickPet(){if(skipClick){skipClick=false;return}open()}
+let ctl,figure,raf,observer,dead=false,last=0,talkUntil=0,request
+function perform(state='idle') {
+  if(!ctl||dragging.value)return
+  if(state==='thinking')ctl.holdRoam(15);ctl.setThinking(state==='thinking');ctl.setListening(false)
+  if(state==='happy'){ctl.setExpr('happy',3);ctl.act('wave')}
+  if(state==='speaking')talkUntil=performance.now()+2000
+  if(state==='idle'){talkUntil=0;ctl.setExpr('neutral');ctl.act('stand')}
+}
+function open(){if(opened.value){closeChat();return}opened.value=true;perform('happy')}
+async function ask(text=query.value){
+  if(!text.trim()||pending.value||aiPending.value)return
+  stopSpeech(false);completeAnswer='';query.value=text;pending.value=true;results.value=[];answer.value='正在查找本地资源目录…';perform('thinking');request=new AbortController()
+  try{
+    const response=await (props.adapter||createLocalResourceAdapter(props.catalog))({message:text,category:props.category,signal:request.signal})
+    if(dead)return
+    const allowed=new Map(props.catalog.categories.flatMap(c=>c.resources).map(r=>[r.id,r]))
+    results.value=(response.resources||[]).filter(r=>allowed.has(r.id)).slice(0,5).map(r=>allowed.get(r.id))
+    void say(response)
+  }catch(e){if(!dead&&e.name!=='AbortError'){answer.value=e.message;perform('idle')}}
+  finally{pending.value=false}
+}
+function removeAttachment(index){attachments.value.splice(index,1);attachmentNotes.value=[]}
+async function addAttachments(list){
+  if(aiPending.value||readingFiles.value)return
+  readingFiles.value=true;aiError.value='';const generation=fileGeneration
+  try{
+    const selected=Array.from(list||[])
+    if(attachments.value.length+selected.length>3)throw new Error('当前对话最多保留 3 个附件，请先移除不需要的附件。')
+    let total=attachments.value.reduce((n,f)=>n+f.size,0)
+    const added=[]
+    for(const file of selected){
+      const ext=file.name.split('.').pop().toLowerCase()
+      if(!['png','jpg','jpeg','webp','gif','pdf','docx','txt','md','csv','json'].includes(ext))throw new Error('支持图片、PDF、DOCX、TXT、MD、CSV 和 JSON。')
+      if(!file.size||file.size>5*1024*1024)throw new Error('单个附件须大于 0 字节且不超过 5 MB。')
+      total+=file.size;if(total>10*1024*1024)throw new Error('附件合计不能超过 10 MB。')
+      const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('文件读取失败，请重试。'));reader.readAsDataURL(file)})
+      added.push({name:file.name,size:file.size,data:dataUrl.split(',')[1],preview:['png','jpg','jpeg','webp','gif'].includes(ext)?dataUrl:null})
+    }
+    if(!dead&&generation===fileGeneration){attachments.value.push(...added);attachmentNotes.value=[]}
+  }catch(e){if(!dead&&generation===fileGeneration)aiError.value=e.message}
+  finally{readingFiles.value=false;if(attachmentInput.value)attachmentInput.value.value=''}
+}
+async function sendChat(){
+  const message=aiInput.value.trim()||(attachments.value.length?'请帮我查看这些附件。':'');if(!message||aiPending.value||pending.value||readingFiles.value)return
+  if(browserMode&&!browserApiKey.value.trim()){aiError.value='请输入本次会话使用的 DeepSeek API 密钥。';return}
+  stopInteraction();stopSpeech();aiError.value='';aiPending.value=true;perform('thinking')
+  const history=chatMessages.value.filter(m=>m.content).slice(-12).map(({role,content})=>({role,content}))
+  chatMessages.value.push({role:'user',content:message,files:attachments.value.map(f=>f.name)});aiInput.value=''
+  const controller=new AbortController();aiRequest=controller
+  try{
+    const payload={message,history,interactions:interactionMemory.snapshot(),attachments:attachments.value.map(({name,data})=>({name,data}))}
+    let data
+    if(browserMode){
+      const {browserChat}=await import('./whale-browser-chat.js')
+      data=await browserChat({...payload,apiKey:browserApiKey.value},controller.signal)
+    }else{
+      const response=await fetch('/__teacher-preview/chat',{method:'POST',credentials:'same-origin',signal:controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      data=await response.json();if(!response.ok)throw new Error(data.error||'聊天暂时不可用。')
+    }
+    if(dead||controller.signal.aborted)return
+    attachmentNotes.value=data.attachmentNotes||[]
+    const entry={role:'assistant',content:''};chatMessages.value.push(entry)
+    const reactiveEntry=chatMessages.value[chatMessages.value.length-1]
+    void say(data,value=>reactiveEntry.content=value,'chat')
+  }catch(e){if(!dead){aiError.value=e.name==='AbortError'?'已停止本次请求。':e.message;aiInput.value=message;perform('idle')}}
+  finally{if(aiRequest===controller){aiPending.value=false;aiRequest=null}}
+}
+function clearChat(){browserApiKey.value='';interactionMemory.clear();stopInteraction();aiRequest?.abort();stopSpeech(false);chatMessages.value=[];aiError.value='';attachments.value=[];attachmentNotes.value=[];fileGeneration++}
+defineExpose({perform,open,ask,act,express,say,stopSpeech})
+onMounted(async()=>{
+  fitDock();window.addEventListener('resize',fitDock)
+  dockObserver=new ResizeObserver(fitDock);dockObserver.observe(dock.value)
+  try{
+    const root=browserMode?withBase('/assets/whale/web/'):'/__teacher-preview/whale/web/'
+    const [{createPet,createSfx,MOTIONS,EXPRESSIONS,FACES},{createWhaleFigure},parser]=await Promise.all([import(/* @vite-ignore */ root+'pet-core.js'),import(/* @vite-ignore */ root+'whale/figure.js'),import(/* @vite-ignore */ root+'speech-script.js')])
+    scriptParser=parser
+    motions.value=MOTIONS;expressions.value=EXPRESSIONS.map(id=>({id,label:FACES[id]?.label||id}));sound=createSfx({storageKey:'whale-preview.sound'});sound.set(false)
+    figure=await createWhaleFigure(new URL(root+'whale/',location.origin),{scheme:'deepseek'})
+    if(dead){figure.dispose?.();return}
+    ctl=createPet({petG:pet.value,shadowEl:shadow.value,fxG:fx.value},{sfx:sound,figure,onEvent:petEvent,roam:'free',enter:'none',bounds:()=>({W:220,H:220,floorY:208,S:.65})})
+    ctl.act('stand');observer=new ResizeObserver(()=>ctl.resize());observer.observe(stage.value)
+    loaded.value=true;status.value='轻点查资料 · 按住可拖动'
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches
+    const frame=now=>{if(dead)return;raf=requestAnimationFrame(frame);if(document.hidden||minimized.value)return;if(now-last<(reduced?200:33))return;const dt=Math.min(.05,(now-last)/1000);last=now;if(now<talkUntil)ctl.talk();ctl.step(dt);if(ctl.pet.mode==='drag'){const held=stepDragInertia(dragInertia,dt);ctl.pet.tilt=held.degrees;ctl.pet.tiltV=0;ctl.pet.dragFlustered=held.flustered;if(!spinRecorded&&(Math.abs(dragInertia.omega)>4.5||Math.abs(held.degrees)>90)){spinRecorded=true;recordInteraction('spin')}}ctl.render()};raf=requestAnimationFrame(frame)
+  }catch{status.value='角色加载失败，仍可使用资料查找。'}
+})
+onBeforeUnmount(()=>{dead=true;browserApiKey.value='';interactionMemory.clear();stopInteraction();fileGeneration++;attachments.value=[];stopSpeech(false);clearTimeout(carryTimer);cancelAnimationFrame(raf);observer?.disconnect();dockObserver?.disconnect();window.removeEventListener('resize',fitDock);request?.abort();aiRequest?.abort();sound?.set(false);figure?.dispose?.()})
+</script>
+<template>
+  <aside ref="dock" class="whale-assistant" :class="{'is-dragging':dragging}" :style="position?{left:'auto',right:position.right+'px',bottom:position.bottom+'px'}:undefined" aria-label="鲸鱼娘资料助手">
+    <button v-if="minimized" class="restore" @click="restorePet" @pointerdown="startDrag" @pointermove="moveDrag" @pointerup="endDrag" @pointercancel="endDrag" @lostpointercapture="endDrag">🐳 资料助手</button>
+    <div v-show="!minimized">
+      <section v-if="opened" class="chat" :style="chatPosition" aria-label="资料助手对话" @keydown.esc="closeChat">
+        <header><div class="assistant-heading"><strong>鲸鱼娘 · 资料助手</strong><small>本地查找 · DeepSeek 对话</small></div><button class="interaction-toggle" :aria-pressed="interactionOn" @click="toggleInteraction">互动回应：{{interactionOn?'开':'关'}}</button><button class="close-chat" aria-label="关闭对话" @click="closeChat">×</button></header>
+        <div class="chat-body"><p :aria-live="playing?'off':'polite'">{{answer}}</p><button v-if="playing&&speechArea==='lookup'" class="skip-speech" @click="stopSpeech()">立即显示全文</button><a v-for="r in results" :key="r.id" :href="r.url" target="_blank" rel="noopener noreferrer">{{r.name}} ↗</a>
+        <div class="examples"><button v-for="s in ['IGCSE 爱德思 数学','IB','新加坡']" :key="s" :disabled="pending||aiPending" @click="ask(s)">{{s}}</button></div></div>
+        <form @submit.prevent="ask()"><label class="sr-only" for="whale-query">想查找什么资料</label><input id="whale-query" v-model="query" placeholder="输入课程体系、科目或教材名" maxlength="400" :disabled="pending||aiPending"/><button :disabled="pending||aiPending||!query.trim()">{{pending?'查找中':'查找'}}</button></form>
+        <section class="ai-chat" aria-label="与鲸鱼娘聊天" @dragover.prevent @drop.prevent="addAttachments($event.dataTransfer.files)">
+          <div class="ai-heading"><strong>和鲸鱼娘聊聊</strong><button :disabled="aiPending" @click="clearChat">清空</button></div>
+          <small>DeepSeek · 尚未接入教学目录</small>
+          <div v-if="browserMode" class="api-key-entry"><label for="whale-api-key">本次会话的 DeepSeek API 密钥</label><input id="whale-api-key" v-model="browserApiKey" type="password" autocomplete="off" placeholder="输入自己的 API 密钥" :disabled="aiPending"/><small>仅保存在当前页面，直接发送给 DeepSeek；刷新或清空对话后移除。</small></div>
+          <div class="ai-history" aria-live="polite" :aria-busy="aiPending||playing">
+            <p v-if="!chatMessages.length" class="ai-empty">可以先打个招呼，或问问她喜欢吃什么。</p>
+            <div v-for="(m,i) in chatMessages" :key="i" class="ai-message" :class="m.role"><b>{{m.role==='user'?'你':'鲸鱼娘'}}</b><small v-if="m.files?.length" class="sent-files">附件：{{m.files.join('、')}}</small><p>{{m.content||'…'}}</p></div>
+            <p v-if="aiPending">鲸鱼娘正在想怎么回答…</p>
+          </div>
+          <p v-if="aiError" role="alert" class="ai-error">{{aiError}}</p>
+          <button v-if="playing&&speechArea==='chat'" class="skip-speech" @click="stopSpeech()">立即显示全文</button>
+          <div class="attachments">
+            <input ref="attachmentInput" type="file" accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.docx,.txt,.md,.csv,.json" multiple class="sr-only" aria-label="选择临时附件" :disabled="aiPending||readingFiles" @change="addAttachments($event.target.files)"/>
+            <button type="button" class="attach-button" :disabled="aiPending||readingFiles" @click="attachmentInput?.click()">{{readingFiles?'正在读取…':'＋ 临时附件'}}</button>
+            <small>也可拖入这里 · 最多3个，每个5 MB，合计10 MB<br/>图片、PDF（合计10页）、Word（仅读文字）、文本</small>
+            <div v-for="(file,index) in attachments" :key="file.name+index" class="attachment-chip"><img v-if="file.preview" :src="file.preview" :alt="file.name+' 预览'"/><span>{{file.name}}<small>{{(file.size/1024).toFixed(0)}} KB</small></span><button type="button" :aria-label="'移除附件 '+file.name" :disabled="aiPending" @click="removeAttachment(index)">×</button></div>
+            <small v-if="attachments.length">仅用于当前对话，发送时交由 DeepSeek 处理；不入库。清空或刷新后移除。</small>
+            <small v-for="note in attachmentNotes" :key="note" class="attachment-note">{{note}}</small>
+          </div>
+          <form @submit.prevent="sendChat"><label class="sr-only" for="whale-chat-input">给鲸鱼娘发消息</label><textarea id="whale-chat-input" v-model="aiInput" rows="2" maxlength="2000" placeholder="在这里和鲸鱼娘聊天…" :disabled="aiPending" @keydown.enter.exact.prevent="sendChat"/><button :disabled="aiPending||pending||readingFiles||(!aiInput.trim()&&!attachments.length)">{{aiPending?'等待中':'发送'}}</button></form>
+          <button v-if="aiPending" @click="aiRequest?.abort()">停止等待</button>
+        </section>
+        <details class="action-panel"><summary>动作与表情</summary>
+          <p>原版动作 · {{motions.length}} 项</p><div class="action-grid"><button v-for="m in motions" :key="m" @click="act(m)">{{motionLabels[m]||m}}</button></div>
+          <p>原版表情 · {{expressions.length}} 项</p><div class="action-grid"><button v-for="e in expressions" :key="e.id" @click="express(e.id)">{{e.label}}</button></div>
+          <p>互动</p><div class="action-grid"><button @click="previewCarry">拎起与落地</button><button @click="express('dragged')">抛起来</button><button @click="ctl?.setListening(true)">倾听</button><button @click="perform('thinking')">思考</button><button @click="perform('speaking')">说话</button><button @click="perform('idle')">恢复待机</button></div>
+          <div class="action-grid"><button :aria-pressed="roaming" @click="toggleRoam">自由活动：{{roaming?'开':'关'}}</button><button :aria-pressed="soundOn" @click="toggleSound">音效：{{soundOn?'开':'关'}}</button><button :aria-pressed="throwing" @click="throwing=!throwing">甩动抛出：{{throwing?'开':'关'}}</button></div>
+          <small>在角色身上来回移动鼠标可触发摸头反应。自由活动限于角色所在的小舞台。</small>
+        </details>
+        <small v-if="browserMode" class="pet-credits">角色引擎 <a href="https://github.com/Pal-AI-Lab/Coopanion" target="_blank" rel="noopener">Coopanion</a> · <a :href="withBase('/assets/whale/SOURCE.txt')" target="_blank">源码与署名</a></small>
+      </section>
+      <div class="pet-wrap"><button class="collapse" @click="minimizePet" aria-label="收起鲸鱼娘">收起 ↓</button><button class="pet-button" @click="clickPet" @pointerdown="startDrag" @pointermove="moveDrag($event);hoverPet($event)" @pointerleave="ctl?.pointerLeave()" @pointerup="endDrag" @pointercancel="endDrag" @lostpointercapture="endDrag" :aria-expanded="opened" aria-label="打开鲸鱼娘资料助手"><span ref="stage" class="stage"><svg viewBox="0 0 220 220" aria-hidden="true"><ellipse ref="shadow" fill="#799abe" opacity=".13"/><g ref="pet"/><g ref="fx"/></svg><span v-if="!loaded" class="fallback">🐳</span></span><span class="pet-label" :class="{'interaction-reply':interactionOn&&interactionText}" aria-live="polite">{{interactionOn&&interactionText?interactionText:status}}</span></button></div>
+    </div>
+  </aside>
+</template>
+<style scoped>
+.chat header .interaction-toggle{transform:translateX(-20px);font-size:12px;padding:4px 9px;margin:0;white-space:nowrap;justify-self:center;grid-column:2;grid-row:2;border:1px solid var(--vp-c-divider);border-radius:14px}.interaction-toggle[aria-pressed="true"]{background:#dcecff;color:#245780}.pet-label.interaction-reply{white-space:normal;overflow-wrap:anywhere;line-height:1.5}
+
+.attachments{margin-top:8px;border:1px dashed var(--vp-c-divider);border-radius:9px;padding:9px}.attach-button{color:var(--vp-c-brand-1);padding:4px 0!important}.attachments>small,.sent-files{display:block;line-height:1.6}.attachment-chip{display:flex;gap:7px;align-items:center;border:1px solid var(--vp-c-divider);border-radius:7px;padding:6px;margin:6px 0;font-size:12px}.attachment-chip img{width:44px;height:44px;object-fit:contain}.attachment-chip span{min-width:0;flex:1;overflow-wrap:anywhere}.attachment-chip small{display:block}.attachment-chip button{padding:4px 8px;font-size:18px}.attachment-note{color:var(--vp-c-brand-1)!important}
+
+.api-key-entry{margin:10px 0}.api-key-entry label,.api-key-entry small{display:block}.api-key-entry input{width:100%;margin:6px 0;box-sizing:border-box}.pet-credits{display:block;padding:0 16px 12px}.ai-chat{border-top:1px solid var(--vp-c-divider);padding:12px 14px}.ai-heading{display:flex;justify-content:space-between;align-items:center}.ai-heading strong{font-size:14px}.ai-heading button{font-size:12px;color:var(--vp-c-text-2)}.ai-history{max-height:220px;overflow:auto;margin:8px 0}.ai-message{padding:8px 10px;margin:8px 0;border-radius:10px;background:var(--vp-c-bg-soft)}.ai-message.user{margin-left:24px;background:#eaf3fa;color:#263e54}.ai-message b{font-size:11px}.ai-message p,.ai-empty{white-space:pre-wrap;line-height:1.6;font-size:13px;margin:4px 0}.ai-chat form{padding:8px 0;border:0}.ai-chat textarea{min-width:0;flex:1;resize:vertical;border:1px solid var(--vp-c-divider);border-radius:8px;padding:8px;font-size:13px}.ai-error{font-size:12px;color:#b54141}
+
+/* Pet-core inserts SVG particles dynamically, outside Vue's scoped attributes. */
+.stage :deep(.tearf){fill:#8fd0ff}
+.stage :deep(.p-heart){stroke:#ff5c93;fill:#ffd0df}
+.stage :deep(.p-dust){stroke:#9aa3c0}
+.stage :deep(.eye){stroke:#3d6ee6}
+.restore{touch-action:none;user-select:none;cursor:grab}.is-dragging .restore{cursor:grabbing}.pet-button{touch-action:none;user-select:none;cursor:grab!important}.is-dragging .pet-button{cursor:grabbing!important}.chat{position:fixed;overflow-y:auto!important;margin:0!important}.action-panel p{margin:10px 0 4px;font-weight:600}.action-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}.action-grid button{background:var(--vp-c-bg-soft);border-radius:6px}.action-grid button[aria-pressed="true"]{background:#dcecff;color:#245780}
+.whale-assistant{position:fixed;left:8px;right:auto;bottom:8px;z-index:40;font-size:14px;color:var(--vp-c-text-1)}.pet-wrap{position:relative;width:220px;margin-left:0}.pet-button{display:block;width:100%;cursor:pointer}.stage{display:block;width:220px;height:220px}.stage svg{width:100%;height:100%;overflow:visible}.pet-label{display:block;background:var(--vp-c-bg);border:1px solid #b7d4eb;border-radius:20px;padding:7px 10px;font-size:12px;box-shadow:0 3px 15px #23486712}.collapse{position:absolute;right:0;top:0;z-index:1;font-size:12px;color:var(--vp-c-text-2);background:var(--vp-c-bg);border-radius:12px;padding:3px 8px}.restore{background:#e7f3fd;color:#245780;border:1px solid #b7d4eb;border-radius:25px;padding:12px 18px}.chat{width:360px;max-width:calc(100vw - 28px);border:1px solid #bfd6ec;border-radius:18px;background:var(--vp-c-bg);box-shadow:0 12px 45px #153c6330;overflow:hidden;margin-bottom:6px}.chat header{position:sticky;top:0;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto 26px;column-gap:12px;row-gap:8px;align-items:center;background:var(--vp-c-bg-soft);padding:16px}.assistant-heading{display:contents}.assistant-heading strong{grid-column:1 / 3;grid-row:1}.assistant-heading small{grid-column:1;grid-row:2;white-space:nowrap}.chat header .close-chat{grid-column:3;grid-row:1 / 3;padding:4px 0}.chat strong{display:block;font-size:16px}.chat small{font-size:11px;color:var(--vp-c-text-2)}.chat header button{font-size:25px;padding:4px 8px}.chat-body{padding:14px 16px;max-height:230px;overflow:auto}.chat-body p{margin:0 0 12px;line-height:1.7;white-space:pre-wrap}.skip-speech{font-size:12px;color:var(--vp-c-brand-1);padding:4px 8px;border:1px solid var(--vp-c-divider);border-radius:8px}.chat-body a{display:block;border:1px solid #cee0ef;padding:10px;margin:8px 0;border-radius:9px;color:var(--vp-c-brand-1);font-size:13px}.examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.examples button{font-size:11px;border-radius:14px;background:var(--vp-c-bg-soft);padding:4px 8px}.chat form{display:flex;gap:6px;padding:12px;border-top:1px solid var(--vp-c-divider)}.chat input{width:0;flex:1;border:1px solid var(--vp-c-divider);border-radius:8px;padding:9px;font-size:13px}.chat form button{background:#306d9f;color:white;border-radius:8px;padding:6px 12px}.chat button:disabled{opacity:.5}.chat details{padding:0 14px 10px;font-size:11px;color:var(--vp-c-text-2)}.chat details button{padding:5px 9px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}button:focus-visible,a:focus-visible{outline:2px solid #347bad;outline-offset:3px}.fallback{position:absolute;top:80px;left:75px;font-size:60px}@media(max-width:600px){.whale-assistant{left:8px;right:auto;bottom:8px}.pet-wrap{width:140px}.stage{width:140px;height:140px}.pet-label{font-size:10px}.chat-body{max-height:25vh}.collapse{top:0}.fallback{top:40px;left:40px}}
+</style>

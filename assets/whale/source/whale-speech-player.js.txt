@@ -1,0 +1,33 @@
+// Rendering adapter for Coopanion's parsed speech beats. Never interprets HTML.
+export function abortableDelay(ms, signal) {
+  return new Promise((resolve, reject) => {
+    const abort = () => { clearTimeout(timer); reject(new DOMException('Aborted', 'AbortError')) }
+    if (signal?.aborted) return reject(new DOMException('Aborted', 'AbortError'))
+    const timer = setTimeout(() => { signal?.removeEventListener('abort', abort); resolve() }, ms)
+    signal?.addEventListener('abort', abort, {once:true})
+  })
+}
+export const speechText = beats => beats.map(b => b.text).filter(Boolean).join('\n\n')
+export async function playSpeech(beats, {signal, text, action, talk=()=>{}, delay=abortableDelay, instant=false}) {
+  const check = () => { if(signal?.aborted) throw new DOMException('Aborted','AbortError') }
+  let shown='', queue=Promise.resolve()
+  const enqueue = ids => {
+    for(const id of ids) queue=queue.then(async()=>{check(); const duration=await action(id); await delay(duration || 0,signal)})
+    // Cancellation may happen while text is typing, before the queue is awaited.
+    queue.catch(()=>{})
+  }
+  text('')
+  for(const beat of beats) {
+    check(); enqueue(beat.actions); await queue
+    if(beat.text && shown) shown+='\n\n'
+    let offset=0, anchor=0
+    const trigger=()=>{while(anchor<beat.anchors.length && beat.anchors[anchor].at<=offset) enqueue(beat.anchors[anchor++].actions)}
+    trigger()
+    for(const char of beat.text) {
+      check(); shown+=char; offset+=char.length; text(shown); trigger()
+      if(!instant){talk(); await delay(/[，。！？、,.!?]/.test(char)?150:45,signal)}
+    }
+    await queue
+  }
+  check(); return shown
+}
