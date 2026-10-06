@@ -9,6 +9,8 @@ source/whale-assistant-adapter.js.txt
 source/whale-browser-chat.js.txt
 source/whale-drag-inertia.js.txt
 source/whale-interaction-lines.js.txt
+source/whale-material-guidance.js.txt
+source/whale-material-inventory.js.txt
 source/whale-persona.js.txt
 source/whale-speech-player.js.txt
 source/package.json.txt

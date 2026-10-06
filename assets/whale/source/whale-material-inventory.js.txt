@@ -1,0 +1,634 @@
+// Verified folder metadata only. Never include credentials or document bodies.
+export const verifiedMaterialEntries = [
+  {
+    "key": "hk-primary",
+    "id": "verified-material:hk-primary",
+    "name": "香港小学阶段 · 小学教材",
+    "url": "https://drive.google.com/drive/folders/14wdQX5GFi8iQbdv3ihqebsmk9DOQvXHI",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】小学教材"
+    ],
+    "route": "hongkong",
+    "subject": "all",
+    "aliases": [],
+    "note": "本地中英数上层目录",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "british-primary",
+    "id": "verified-material:british-primary",
+    "name": "英系小学 · KS1–KS3资料",
+    "url": "https://drive.google.com/drive/folders/1Ah7tHnyaB2XgViLZfatp8NnK0lnLnPAz",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】英系KS1-KS3资料"
+    ],
+    "route": "british",
+    "subject": "all",
+    "aliases": [],
+    "note": "综合入口包含初中，进入后选择小学阶段",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "ib-pyp",
+    "id": "verified-material:ib-pyp",
+    "name": "IB PYP · IB资料总入口",
+    "url": "https://drive.google.com/drive/folders/1KnIRqaGupWflMCKaR8ssvWkW1dNL0LOg",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料"
+    ],
+    "route": "ib",
+    "subject": "all",
+    "aliases": [],
+    "note": "总入口包含MYP/DP，PYP数学和英语有独立下层入口",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "modern-en",
+    "id": "verified-material:modern-en",
+    "name": "【数学科】Modern Primary Mathematics (Second Edition)",
+    "url": "https://drive.google.com/drive/folders/12DmvagDPwKTaOT1gDWrIg_mmOMvJ1PEY",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】小学教材",
+      "【数学科】Modern Primary Mathematics (Second Edition)"
+    ],
+    "route": "hongkong",
+    "subject": "math",
+    "aliases": [
+      "modern primary",
+      "现代小学数学英文"
+    ],
+    "note": "P1至6英文数学常规；配套完整性未保证",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "modern-cn",
+    "id": "verified-material:modern-cn",
+    "name": "【数学科】現代小學數學  第二版",
+    "url": "https://drive.google.com/drive/folders/1spbnLYfUavALABjE_-uL-NZ7KGXY6vz5",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】小学教材",
+      "【数学科】現代小學數學  第二版"
+    ],
+    "route": "hongkong",
+    "subject": "math",
+    "aliases": [
+      "现代小学数学",
+      "現代小學數學"
+    ],
+    "note": "中文常规小学数学第二版",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "high-performance",
+    "id": "verified-material:high-performance",
+    "name": "【数学科】High Performance Math系列教材",
+    "url": "https://drive.google.com/drive/folders/1mef5XVl-GeAgGHl8CL9z-KTHnz-j7ecT",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】小学教材",
+      "【数学科】High Performance Math系列教材"
+    ],
+    "route": "hongkong",
+    "subject": "math",
+    "aliases": [
+      "high performance"
+    ],
+    "note": "英文数学进阶；不是英语科",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "lighthouse",
+    "id": "verified-material:lighthouse",
+    "name": "【英文科】Lighthouse-EPHHK",
+    "url": "https://drive.google.com/drive/folders/1J_cbWO4pTcX3O80FBL8iGVPu3KPshZbL",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】小学教材",
+      "【英文科】Lighthouse-EPHHK"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [
+      "lighthouse"
+    ],
+    "note": "小学英语进阶",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "hk-junior",
+    "id": "verified-material:hk-junior",
+    "name": "【DSE体系】初中教材",
+    "url": "https://drive.google.com/drive/folders/1kYiXn3vUN2k4jxyrQguOhxhqhmsfHpUv",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材"
+    ],
+    "route": "hongkong",
+    "subject": "all",
+    "aliases": [],
+    "note": "初中启思、新世代等系列分版次与语言",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "hk-senior",
+    "id": "verified-material:hk-senior",
+    "name": "【DSE体系】高中教材",
+    "url": "https://drive.google.com/drive/folders/1udUfwopW8Z4_WcgvPzmLSxdlZ9PHSmBN",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】高中教材"
+    ],
+    "route": "hongkong",
+    "subject": "all",
+    "aliases": [],
+    "note": "高中教材；必修和M1/M2分开",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "edge2",
+    "id": "verified-material:edge2",
+    "name": "【英文教材】Pearson-第二版EDGE初中英文全套",
+    "url": "https://drive.google.com/drive/folders/1dpR0nEj2axmBLh47V5elUcQW0jOe4IDY",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材",
+      "【英文教材】Pearson-第二版EDGE初中英文全套"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [
+      "edge"
+    ],
+    "note": "第二版电子资源下Grammar Book 1至3",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "forward",
+    "id": "verified-material:forward",
+    "name": "【英文教材】Oxford English Forward",
+    "url": "https://drive.google.com/drive/folders/1MdlJvY-eVTrS902jUbrj7pYZkLzuSDoc",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材",
+      "【英文教材】Oxford English Forward"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [
+      "english forward"
+    ],
+    "note": "初中常规，非高中Paper4目录",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "performance",
+    "id": "verified-material:performance",
+    "name": "【英文教材】Pilot-Performance Plus",
+    "url": "https://drive.google.com/drive/folders/1RmKIpOTW4-IKl39-MF3xZ4FlX0MdMhsF",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材",
+      "【英文教材】Pilot-Performance Plus"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [
+      "performance plus"
+    ],
+    "note": "初中第五版Level1至3；不是HKDSE Paper1至3",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "dse-listening",
+    "id": "verified-material:dse-listening",
+    "name": "【英文教材】Pilot-Performance Plus for the HKDSE（P1-P3）",
+    "url": "https://drive.google.com/drive/folders/1FQaPHxKXInAM7zeUwop1dgL6R-DNhdMe",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】高中教材",
+      "【英文教材】Pilot-Performance Plus for the HKDSE（P1-P3）"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [],
+    "note": "HKDSE Performance Plus，按Paper区分",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "developing",
+    "id": "verified-material:developing",
+    "name": "【英文教材】Aristro-Developing Skills Connect",
+    "url": "https://drive.google.com/drive/folders/1BW8VP3mM5vrFcURRxcNGnZPFcB_W31ru",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材",
+      "【英文教材】Aristro-Developing Skills Connect"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [
+      "developing skills"
+    ],
+    "note": "Developing Skills Connect候选，具体考试技能需核对",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "research",
+    "id": "verified-material:research",
+    "name": "【DSE体系】英文教研材料",
+    "url": "https://drive.google.com/drive/folders/1helhWJFRtgg5R3J5qZATWC_UMFeaM7gN",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】英文教研材料"
+    ],
+    "route": "hongkong",
+    "subject": "english",
+    "aliases": [],
+    "note": "有内容的DSE英文教研目录，不能宣称中一项目成品已确认",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "packages",
+    "id": "verified-material:packages",
+    "name": "05 可授课课包",
+    "url": "https://drive.google.com/drive/folders/1x5tSh686Lv67jsRAePg4L4HqHkgROeeu",
+    "path": [
+      "05 可授课课包"
+    ],
+    "route": "all",
+    "subject": "all",
+    "aliases": [
+      "课包"
+    ],
+    "note": "教材和诊断后按需使用",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "global-english",
+    "id": "verified-material:global-english",
+    "name": "剑桥全球英语《Cambridge Global English》1-9级全套（对接CEFR覆盖幼儿园到初中阶段）",
+    "url": "https://drive.google.com/drive/folders/1EA_R-R7yCgMFqV3jTK3PIZL3HtECV049",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】英系KS1-KS3资料",
+      "剑桥全球英语《Cambridge Global English》1-9级全套（对接CEFR覆盖幼儿园到初中阶段）"
+    ],
+    "route": "british",
+    "subject": "english",
+    "aliases": [
+      "global english",
+      "剑桥全球英语"
+    ],
+    "note": "第二版小学1至6/初中7至9；抽查1/6/8/9见LB/WB/TB及音视频目录名称",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "oip-math",
+    "id": "verified-material:oip-math",
+    "name": "Oxford International Primary Maths 1–6",
+    "url": "https://drive.google.com/drive/folders/1RC86-tNhVuPlj440V38BNgaNjobwf3wA",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IBPYP数学",
+      "Workbook"
+    ],
+    "route": "british",
+    "subject": "math",
+    "aliases": [
+      "oxford international primary maths"
+    ],
+    "note": "存放IBPYP数学/Workbook；抽查1/6；目录位置不决定资格或册型",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "oip-english",
+    "id": "verified-material:oip-english",
+    "name": "Oxford International Primary English 1–6",
+    "url": "https://drive.google.com/drive/folders/1jsf4JdeF3GtSiic5-3bO2oqVqbu1osLc",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "PYP（k-6年级）校区：英文语言和文学",
+      "TextBook"
+    ],
+    "route": "british",
+    "subject": "english",
+    "aliases": [
+      "oxford international primary english"
+    ],
+    "note": "库存见1至6文件名；第4册未标册型；不是母语专用",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "nelson",
+    "id": "verified-material:nelson",
+    "name": "Nelson English Workbook 1–6",
+    "url": "https://drive.google.com/drive/folders/11ugatgCJjAD4AMWTeQefRzXBHUGPLErM",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "PYP（k-6年级）校区：英文语言和文学",
+      "Workbook"
+    ],
+    "route": "ib",
+    "subject": "english",
+    "aliases": [
+      "nelson"
+    ],
+    "note": "技能补充；ans1至6未核验对应关系",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "ib-pyp-math",
+    "id": "verified-material:ib-pyp-math",
+    "name": "IBPYP数学",
+    "url": "https://drive.google.com/drive/folders/1S8_Dk0xzSilk0jO3TerpOlnIesPmAvGK",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IBPYP数学"
+    ],
+    "route": "ib",
+    "subject": "math",
+    "aliases": [],
+    "note": "PYP数学候选K至6及Oxford Primary Maths路径",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "ib-pyp-english",
+    "id": "verified-material:ib-pyp-english",
+    "name": "PYP（k-6年级）校区：英文语言和文学",
+    "url": "https://drive.google.com/drive/folders/1ga9zDLLxXj-r-18hC-LVlD_QxeXHBfyY",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "PYP（k-6年级）校区：英文语言和文学"
+    ],
+    "route": "ib",
+    "subject": "english",
+    "aliases": [],
+    "note": "PYP英文语言与文学上层入口",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "myp-english",
+    "id": "verified-material:myp-english",
+    "name": "IBMYP（6-10年级）英文单科资料合集",
+    "url": "https://drive.google.com/drive/folders/1g4IFJSj8EGh06yKtc8aHFqWeNhKG4xf6",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IBMYP（6-10年级）英文单科资料合集"
+    ],
+    "route": "ib",
+    "subject": "english",
+    "aliases": [],
+    "note": "语言文学与语言习得分开，Phase不等于年级",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "myp-math",
+    "id": "verified-material:myp-math",
+    "name": "IB MYP数学合集",
+    "url": "https://drive.google.com/drive/folders/1Qrqw97h55hGQFOp1mrDyxw6mCwmsVqwu",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IB MYP数学合集"
+    ],
+    "route": "ib",
+    "subject": "math",
+    "aliases": [
+      "myp数学",
+      "myp 数学"
+    ],
+    "note": "Oxford/Haese，Standard/Extended分开",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "dp-english-a",
+    "id": "verified-material:dp-english-a",
+    "name": "IB-英语A",
+    "url": "https://drive.google.com/drive/folders/1Nb-lQkACJTwVct0gV1mr3sn_NGKcWSi9",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IB-英语A"
+    ],
+    "route": "ib",
+    "subject": "english",
+    "aliases": [
+      "英语a",
+      "english a"
+    ],
+    "note": "Cambridge/Hodder候选，确认语言与文学/文学、SL/HL、指定作品",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "dp-english-b",
+    "id": "verified-material:dp-english-b",
+    "name": "IB-英语B",
+    "url": "https://drive.google.com/drive/folders/17G94k9eJzvDplVPXWDubV0C7uTd-YQ2s",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IB-英语B"
+    ],
+    "route": "ib",
+    "subject": "english",
+    "aliases": [
+      "英语b",
+      "english b"
+    ],
+    "note": "Oxford/Cambridge候选，核对考试年和SL/HL",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "dp-chinese-a",
+    "id": "verified-material:dp-chinese-a",
+    "name": "IB-中文A",
+    "url": "https://drive.google.com/drive/folders/1a_Vol_JeY1bax9Kkfgj3TD4vSKZZPYF-",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】IB体系教材资料",
+      "IB-中文A"
+    ],
+    "route": "ib",
+    "subject": "chinese",
+    "aliases": [
+      "中文a",
+      "chinese a"
+    ],
+    "note": "不能用于中文B或ab initio主教材",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "cie",
+    "id": "verified-material:cie",
+    "name": "【国际体系】CIE考试局资料",
+    "url": "https://drive.google.com/drive/folders/1VlhWH6X-L_T8MVQ3HsEUCKX5nPlSYmVn",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】CIE考试局资料"
+    ],
+    "route": "british",
+    "subject": "all",
+    "aliases": [
+      "cie"
+    ],
+    "note": "0580/0606/9709和语言按代码选",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "edexcel",
+    "id": "verified-material:edexcel",
+    "name": "【国际体系】爱德思考试局资料",
+    "url": "https://drive.google.com/drive/folders/1-_IsUcPdznV4x1oWyMjEEYBKXwqs9CN9",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】爱德思考试局资料"
+    ],
+    "route": "british",
+    "subject": "all",
+    "aliases": [
+      "edexcel",
+      "爱德思"
+    ],
+    "note": "数学A/B/Further Pure和A Level组件分开",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "oxfordaqa",
+    "id": "verified-material:oxfordaqa",
+    "name": "【国际体系】AQA考试局资料",
+    "url": "https://drive.google.com/drive/folders/16Sxx_fXEwEtKs9QeVCWKboVuA64YolfX",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】AQA考试局资料"
+    ],
+    "route": "british",
+    "subject": "all",
+    "aliases": [
+      "aqa"
+    ],
+    "note": "9260/9660/9665为OxfordAQA国际资格",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  },
+  {
+    "key": "cgp",
+    "id": "verified-material:cgp",
+    "name": "CGP KS3 Year7 - Year9 Maths 6本",
+    "url": "https://drive.google.com/drive/folders/1kwhOSfZWK2lfJlu3_BFBCnANYzNKlIe4",
+    "path": [
+      "01 教材与配套资源",
+      "【国际体系】英系KS1-KS3资料",
+      "CGP KS3 Year7 - Year9 Maths 6本"
+    ],
+    "route": "british",
+    "subject": "math",
+    "aliases": [
+      "cgp"
+    ],
+    "note": "KS3 Year7至9；不当小学教材，不保证对齐Cambridge",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
+  }
+]

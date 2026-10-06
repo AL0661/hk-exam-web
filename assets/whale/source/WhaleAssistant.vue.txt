@@ -2,7 +2,7 @@
 import {withBase} from 'vitepress'
 import {ref,computed,onMounted,onBeforeUnmount} from 'vue'
 import {createInteractionPicker,createInteractionMemory} from './whale-interaction-lines.js'
-import {createLocalResourceAdapter} from './whale-assistant-adapter.js'
+import {createLocalResourceAdapter,resourceDirectories} from './whale-assistant-adapter.js'
 import {createDragInertia,moveDragInertia,stepDragInertia,releaseDragInertia} from './whale-drag-inertia.js'
 import {playSpeech,speechText,abortableDelay} from './whale-speech-player.js'
 const browserMode=import.meta.env.VITE_TEACHER_BROWSER==='true'
@@ -144,7 +144,7 @@ async function ask(text=query.value){
   try{
     const response=await (props.adapter||createLocalResourceAdapter(props.catalog))({message:text,category:props.category,signal:request.signal})
     if(dead)return
-    const allowed=new Map(props.catalog.categories.flatMap(c=>c.resources).map(r=>[r.id,r]))
+    const allowed=new Map([...props.catalog.categories.flatMap(c=>c.resources),...resourceDirectories(props.catalog)].map(r=>[r.id,r]))
     results.value=(response.resources||[]).filter(r=>allowed.has(r.id)).slice(0,5).map(r=>allowed.get(r.id))
     void say(response)
   }catch(e){if(!dead&&e.name!=='AbortError'){answer.value=e.message;perform('idle')}}

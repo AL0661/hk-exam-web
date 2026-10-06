@@ -1,0 +1,38 @@
+import {verifiedMaterialEntries} from './whale-material-inventory.js'
+
+export {verifiedMaterialEntries}
+export const materialGuidance = `
+教材选用指引（2026-10-06核对）：
+只对中文、英语、数学建立详细方案，其他科目按实际课程寻找已有库存。先确认课程体系、科目、阶段、授课语言、能力、目标、学校进度与备考时间；每轮只问两至三个影响选书的关键问题。学校已有主教材时沿用。默认一套主教材、一至两项补充，说明先教什么、再练什么及如何复查。教材建立连续教学，真题用于诊断与检验，再按需要调用课包；不要堆砌书单。
+香港本地路线：小学常规数学优先现代小学数学第二版及英文版 Modern Primary Mathematics，按授课语言选；进阶优先 High Performance Math。英数指英文授课数学，High Performance Math不是英语科教材。初高中数学优先新世代数学，必修、M1、M2分开。小学英语进阶优先Lighthouse；初中常规优先Oxford English Forward或负责人认可的中一插班教研项目课件，语法优先EDGE第二版Grammar Book，听力优先Performance Plus；高中优先Developing Skills等。初中Performance Plus Level1至3不能等同HKDSE Paper1至3。中文常规优先启思中国语文，版次、启思生活与启思中国语文分开。这些是负责人偏好，不是所有学校采用的事实。幼儿阶段安排听说、识字、数感及简单活动，不整套提前教高年级课本。
+英系路线：区分英格兰国家课程、Cambridge Primary/Lower Secondary及实际考试局。小学Cambridge英语第二语言优先Cambridge Global English第二版1至6，初中7至9；不按册数机械换算香港年级，不把ESL主书当所有母语学生的文学课本。Oxford International Primary English 1至6是综合英语候选，也可服务ESL，不标成母语专用。小学数学可选Oxford International Primary Maths 1至6，先对照课程进度；即使存放IBPYP/Workbook也不代表IB指定教材或已确认册型。现代英数与High Performance只按适合知识点补充，不替代整套英系课程。KS3 CGP Year7至9适合巩固，不能保证完全对齐Cambridge。中学确认IGCSE第一/第二/外语、考试代码、考试年；数学0580、0606、9709与Edexcel数学A/B、Further Pure、A Level/IAL组件分开。AQA目录中的9260、9660、9665属OxfordAQA国际资格，不能当英国本土AQA。中文母语可用启思补充阅读写作，附加语言初学者不套用母语进度。
+IB路线：PYP不是统一指定书系；Mathematics PYP K至6、Oxford International Primary Maths、Oxford International Primary English、Nelson English Workbook是库存候选，按探究单元、学生能力和语言支持选择。MYP语言与文学和语言习得分开；语言习得Phase1至6不是年级，Oxford Capable Phases3/4与Proficient5/6按能力匹配；Hodder语言文学按对应阶段。MYP数学Standard/Extended分开，Oxford第二版2021和Haese可选，MYP10E不是DP主书。DP语言A/B/ab initio与SL/HL、指定作品分开；英语A有Cambridge Brad Philpot与Hodder2019候选，英语B有Oxford和Cambridge2018候选；中文A不能替代中文B。DP数学AA/AI、SL/HL分开，笔记不是主教材，不用DSE M1/M2或A Level替代DP全套。数学知识强、英语题干弱时补语言，不把两科一起降级。跨体系先诊断学科知识、授课语言、评价任务。
+学校书单：先用学校官网课程说明或学生给出的在用书名。实在不确定同类学校教什么，且会改变推荐时，才查相关学校、年级与学年书单；历史书单只作线索，不宣称学校当前使用。不需要常规读取总库文件正文。
+证据边界：库存仅核对文件夹、文件名与入口，未审读教材正文。名称含全套、最新、Final、含答案仅是原始名称线索，不保证完整性、版次、答案对应或音频可用。不得编造页码、章节、指定作品或下载链接。相同名称不同ID不自动合并；Student Book、Workbook、Teacher Book、答案、音频需核对系列/年级/版次再配套。具体学校已采用书系优先于负责人补习偏好。课程更新以考试年和官方现行规格确认，不把未来规格直接套在当前学生。
+本次未确认：中一插班教研项目正式成品入口、完整Cambridge Primary Mathematics系列、DP数学AA/AI的SL/HL完整主教材、国际中文附加语言及PYP/MYP中文专用书系、英系高中语言与文学完整主教材。写本次未确认，不写总库没有。中文A目录中Mandarin Chinese2017名称不足以判断A/B资格。05课包中有F1素材不等于中一项目成品。未确认时给条件式方案与需要核对的字段。
+输出结构：学生判断；主教材及理由；最多两项补充及用途；使用顺序；已核对库存位置与链接；证据和待确认项；下一步。粗略搜索小学教材时先给英系小学、IB PYP、香港小学三个上层入口，解释区别后再问科目目标，不只返回前五个叶子链接。
+下面为已核对入口（名称/存放路径为检索事实，标签为选材用途，不代表学校采用或完整性保证）：
+` + JSON.stringify(verifiedMaterialEntries.map(({name,url,path,route,subject,note})=>({name,url,path,route,subject,note})))
+
+export function normalizeMaterialQuery(value='') {
+  return value.toLowerCase().replace(/小學/g,'小学').replace(/數學/g,'数学').replace(/英語/g,'英语').replace(/語文/g,'语文').replace(/啟思/g,'启思').replace(/劍橋/g,'剑桥').replace(/英國/g,'英国')
+}
+
+// These entries also enter the UI allowlist, so returned links are verified IDs.
+export function recommendedMaterialResults(message) {
+  const q=normalizeMaterialQuery(message)
+  const primary=/小学|primary|pyp|ks[12]/.test(q)
+  const route=/pyp|ib/.test(q)?'ib':/英系|英国|剑桥|cambridge|ks[12]/.test(q)?'british':/香港|本地|dse/.test(q)?'hongkong':null
+  const subject=/数学|英数|math/.test(q)?'math':/英语|英文|english/.test(q)?'english':/中文|语文|chinese/.test(q)?'chinese':null
+  if(primary&&!subject){
+    const ids=route==='british'?['british-primary']:route==='ib'?['ib-pyp']:route==='hongkong'?['hk-primary']:['british-primary','ib-pyp','hk-primary']
+    return verifiedMaterialEntries.filter(r=>ids.includes(r.key))
+  }
+  const explicit=verifiedMaterialEntries.filter(r=>r.aliases?.some(alias=>q.includes(alias.toLowerCase())))
+  if(explicit.length)return explicit
+  if(primary&&subject){
+    const ids=subject==='math'?(route==='british'?['oip-math']:route==='ib'?['ib-pyp-math','oip-math']:['modern-en','modern-cn','high-performance']):subject==='english'?(route==='british'?['global-english','oip-english']:route==='ib'?['oip-english','nelson']:['lighthouse','hk-primary']):['hk-primary']
+    return verifiedMaterialEntries.filter(r=>ids.includes(r.key))
+  }
+  return []
+}
