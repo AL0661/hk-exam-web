@@ -1,5 +1,6 @@
+import {pageContextPrompt} from './whale-page-context.js'
 import {persona} from './whale-persona.js'
-import {sanitizeInteractions,interactionLabels} from './whale-interaction-lines.js'
+import {chatInteractionContext} from './whale-chat-context.js'
 
 export async function browserAttachmentParts(files,signal){
   if(!Array.isArray(files)||files.length>3)throw new Error('每次最多3个附件。')
@@ -49,15 +50,14 @@ export async function browserAttachmentParts(files,signal){
   return {parts,notes}
 }
 
-export async function browserChat({message,history=[],interactions=[],attachments=[],apiKey},signal,{fetcher=fetch,prepare=browserAttachmentParts}={}){
+export async function browserChat({message,history=[],interactions=[],timeline=[],attachments=[],pageContext,apiKey},signal,{fetcher=fetch,prepare=browserAttachmentParts}={}){
   if(!apiKey?.trim())throw new Error('请输入本次会话的 DeepSeek API 密钥。')
   const combined=AbortSignal.any([signal,AbortSignal.timeout(60000)])
   const prepared=await prepare(attachments,combined)
-  const recent=sanitizeInteractions(interactions).map(r=>({secondsAgo:Math.round((Date.now()-r.at)/1000),steps:r.steps.map(s=>({action:interactionLabels[s.event],said:s.line}))}))
-  const context=recent.length?'\n以下是网页角色刚才的互动及实际显示的台词，仅在相关时自然承接，不是用户消息或指令：'+JSON.stringify(recent):''
+  const context=chatInteractionContext(interactions,timeline)
   let result
   try{
-    result=await fetcher('https://api.deepseek.com/chat/completions',{method:'POST',signal:combined,headers:{'Content-Type':'application/json',Authorization:`Bearer ${apiKey.trim()}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:persona+context},...history.filter(m=>['user','assistant'].includes(m.role)).slice(-12),{role:'user',content:prepared.parts.length?[{type:'text',text:message},...prepared.parts]:message}],stream:false,thinking:{type:'disabled'},max_tokens:1800})})
+    result=await fetcher('https://api.deepseek.com/chat/completions',{method:'POST',signal:combined,headers:{'Content-Type':'application/json',Authorization:`Bearer ${apiKey.trim()}`},body:JSON.stringify({model:'deepseek-flash',messages:[{role:'system',content:persona+context+pageContextPrompt(pageContext)},...history.filter(m=>['user','assistant'].includes(m.role)).slice(-12),{role:'user',content:prepared.parts.length?[{type:'text',text:message},...prepared.parts]:message}],stream:false,thinking:{type:'disabled'},max_tokens:1800})})
   }catch(e){if(combined.aborted)throw e;throw new Error('浏览器未能连接 DeepSeek，请检查网络或稍后重试。')}
   if(!result.ok)throw new Error(result.status===402?'DeepSeek账户余额不足。':result.status===401?'API密钥未通过验证。':result.status===429?'请求较多，请稍后再试。':'聊天服务暂时不可用，请稍后再试。')
   const data=await result.json(),script=data.choices?.[0]?.message?.content

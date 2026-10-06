@@ -1,0 +1,18 @@
+import {abortableDelay} from './whale-speech-player.js'
+// Reuse original expressions, gestures and particle rendering only.
+export async function playHitReaction(ctl,{signal,delay=abortableDelay}={}){
+  const previous={mode:ctl.pet.mode,roam:ctl.roam,thinking:ctl.pet.thinking,listening:ctl.pet.listening,expr:ctl.pet.expr}
+  ctl.setRoam('off');ctl.interrupt();ctl.setThinking(false);ctl.setListening(false)
+  try{
+    ctl.setExpr('surprised',1);await delay(650,signal)
+    ctl.act('bow',{duration:2.3});await delay(950,signal)
+    ctl.impact();ctl.setExpr('flustered',1.2);await delay(300,signal)
+    ctl.impact();await delay(1050,signal)
+    ctl.act('dizzy');await delay(3100,signal)
+    ctl.interrupt();ctl.setExpr('sad',1.5);await delay(1500,signal)
+  }finally{
+    ctl.interrupt();ctl.act(['sleep','sit'].includes(previous.mode)?previous.mode:'stand')
+    if(previous.expr)ctl.setExpr(previous.expr)
+    ctl.setRoam(previous.roam);ctl.setThinking(previous.thinking);ctl.setListening(previous.listening)
+  }
+}

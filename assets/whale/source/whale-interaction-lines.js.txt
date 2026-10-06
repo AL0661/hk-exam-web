@@ -15,33 +15,43 @@ interactionLines.poke.push('我听见啦，正在把思路捡起来。', '鲸鱼
 interactionLines.launch.push('我可没选空中办公呀——！', '鲸鱼娘还没学会空中刹车！', '明明想稳住的，怎么越飞越高啦！', '先别问问题，等我转回来！', '哼，落地以后要休息一小会儿。', '我飞这么高，也看不到午饭在哪呀！')
 interactionLines.land.push('我站好啦，刚才的问题说到哪里了？', '鲸鱼娘需要三秒钟整理发型。', '站稳啦，刚才只是有一点点慌。', '哼，下一次可得轻一点。', '刚才没有叫很大声吧……没有吧？', '先歇一小会儿，再陪你认真工作。')
 
-export const interactionLabels = {grab:'被拎起',spin:'快速转圈',pet:'被摸头',poke:'被轻戳',launch:'旋转起飞',land:'落地'}
+interactionLines.tickle=['痒、痒……先停一下啦！','哼，这可不算在认真查资料哦。','我快忍不住笑了……','别挠啦，刚想好的话都忘了。','本鲸申请暂停一下！','我没有躲，只是换个姿势。','好痒……这次算你赢了。','痒……我都要站不稳啦！','哼，等我笑完再回答你。','轻一点啦，我听着呢。','这里也要摸吗……','本鲸可没说可以一直挠哦。']
+interactionLines.hit=["呜……怎么还真敲呀。","这下真的有点晕了……让我坐一下。","都低下头了，怎么还敲嘛……","哎呀……轻一点呀。","呜，好过分……还敲两下。","我还以为伸手是要摸摸头呢……","没事……陪我待一会儿就好了。","等等，先别动……眼前还在转。","呜……不敲了，好不好？","现在可以换成摸摸头了吗……","我都乖乖站着了……","本鲸现在有一点点不开心。","呜……先缓一下。","哼……刚才那下比想的重。","才刚站稳，又要晕啦……","本鲸得歇一小会儿了……","呜，刚刚想好的话都忘了。","哼……这下真有点委屈了。","嗯……等一下，怎么有两个主人。","低头也会被敲……呜。","我慢一点说，你先听着嘛……","还敢靠过来一点……这次不敲了吧？","难过一小会儿就好……你别走。","呜……本鲸今天已经很乖了呀。"]
+interactionLines.tickle.push('哼，刚才那声笑不算数。','我是在抖，不是在邀请你继续。','等、等等，我还没准备好笑呢！','好啦，这次就让你得意一下。','本鲸要把笑声藏起来了。','再挠一下，答案就要笑跑了。','才没有这么怕痒……一点点而已。','我跳开了，这下够不着了吧？','哼，手先停，米饭可以递过来。','哼，笑出来也不代表可以继续。','别闹啦，等我把这句话说完。','好了好了……让我缓口气嘛。')
+export const interactionLabels = {grab:'被拎起',spin:'快速转圈',pet:'上半身被抚摸',poke:'被轻戳',launch:'旋转起飞',land:'落地',tickle:'下半身被挠痒',hit:'受到击打'}
 export const interactionMaxAge = 3 * 60 * 1000
+export function sanitizeInteractionAnchor(anchor){
+  if(!anchor||!['before-answer','thinking','answering','after-answer','stopped'].includes(anchor.phase))return undefined
+  const valid=(id,prefix)=>typeof id==='string'&&new RegExp('^'+prefix+'-[1-9][0-9]{0,5}$').test(id)
+  return {phase:anchor.phase,...(valid(anchor.answerId,'answer')?{answerId:anchor.answerId}:{}),...(valid(anchor.userId,'user')?{userId:anchor.userId}: {})}
+}
 
 // Also used by the server: accept only known actions and exact local dialogue.
 export function sanitizeInteractions(records, now = Date.now()) {
   if (!Array.isArray(records)) return []
   return records.slice(-5).flatMap(record => {
     if (!record || !Number.isFinite(record.at) || record.at > now || now-record.at > interactionMaxAge || !Array.isArray(record.steps)) return []
-    const steps = record.steps.slice(-6).filter(step => step && Object.hasOwn(interactionLines, step.event) && interactionLines[step.event].includes(step.line)).map(({event,line}) => ({event,line}))
-    return steps.length ? [{at:record.at,steps}] : []
+    const steps = record.steps.slice(-6).filter(step => step && Object.hasOwn(interactionLines, step.event) && interactionLines[step.event].includes(step.line)).map(({event,line,at}) => ({event,line,...(Number.isFinite(at)&&at<=now&&now-at<=interactionMaxAge?{at}:{})}))
+    const anchor=sanitizeInteractionAnchor(record.anchor)
+    return steps.length ? [{at:record.at,steps,...(anchor?{anchor}:{})}] : []
   })
 }
 
 export function createInteractionMemory(clock = Date.now) {
   let records = []
   return {
-    add(event,line) {
+    add(event,line,anchor) {
       const now = clock()
       records = sanitizeInteractions(records,now)
       if (!Object.hasOwn(interactionLines,event) || !interactionLines[event].includes(line)) return
       const last = records.at(-1)
-      const merge = last && now-last.at < 10000 && last.steps.at(-1).event !== 'land' && event !== 'grab'
-      if (merge) { last.at=now; last.steps.push({event,line}); last.steps=last.steps.slice(-6) }
-      else records.push({at:now,steps:[{event,line}]})
+      const binding=sanitizeInteractionAnchor(anchor)
+      const merge = last && JSON.stringify(last.anchor)===JSON.stringify(binding) && now-last.at < 10000 && last.steps.at(-1).event !== 'land' && event !== 'grab'
+      if (merge) { last.at=now; last.steps.push({event,line,at:now}); last.steps=last.steps.slice(-6) }
+      else records.push({at:now,steps:[{event,line,at:now}],...(binding?{anchor:binding}:{})})
       records=records.slice(-5)
     },
-    snapshot() { records=sanitizeInteractions(records,clock()); return records.map(r=>({...r,steps:r.steps.map(s=>({...s}))})) },
+    snapshot() { records=sanitizeInteractions(records,clock()); return records.map(r=>({...r,...(r.anchor?{anchor:{...r.anchor}}:{}),steps:r.steps.map(s=>({...s}))})) },
     clear() { records=[] },
   }
 }

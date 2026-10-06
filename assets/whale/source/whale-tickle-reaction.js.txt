@@ -1,0 +1,15 @@
+import {abortableDelay} from './whale-speech-player.js'
+export async function playTickleReaction(ctl,{signal,delay=abortableDelay}={}){
+  const previous={mode:ctl.pet.mode,roam:ctl.roam,thinking:ctl.pet.thinking,listening:ctl.pet.listening}
+  let completed=false
+  ctl.setRoam('off');ctl.interrupt();ctl.setThinking(false);ctl.setListening(false)
+  try{
+    ctl.act('shiver');ctl.setExpr('shy',1.9);await delay(1800,signal)
+    ctl.act('hop');ctl.setExpr('pout',2,true);await delay(1000,signal)
+    completed=true
+  }finally{
+    ctl.interrupt();ctl.act(['sleep','sit'].includes(previous.mode)?previous.mode:'stand')
+    if(completed)ctl.setExpr('pout',2)
+    ctl.setRoam(previous.roam);ctl.setThinking(previous.thinking);ctl.setListening(previous.listening)
+  }
+}

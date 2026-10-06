@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "schools:update": "node scripts/update-school-web.mjs --admissions",
+    "schools:check": "node scripts/check-school-admissions.mjs",
+    "test:schools-web": "node --test scripts/school-web-sources.test.mjs",
     "content:sync": "node scripts/sync-content.mjs",
     "content:check": "node scripts/check-feedback-integrity.mjs",
     "test:content": "node --test scripts/sync-content.test.mjs scripts/school-stages.test.mjs scripts/grade-system.test.mjs scripts/booklists.test.mjs",
@@ -16,7 +19,8 @@
     "mammoth": "^1.13.0",
     "pdfjs-dist": "^6.4.299",
     "vitepress": "^1.6.4",
-    "vue": "^3.5.43"
+    "vue": "^3.5.43",
+    "jszip": "^3.10.2"
   },
   "pnpm": {
     "peerDependencyRules": {

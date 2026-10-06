@@ -655,7 +655,7 @@ export function createPet(els, opts) {
   }
 
   /** Runs a motion. Returns false when the body cannot take it now (in the air, being dragged). */
-  function act(a) {
+  function act(a, options = {}) {
     if (busy()) return false;
     pet.expr = null; pet.lastAct = a;
     const seated = pet.mode === 'sleep' || pet.mode === 'sit';
@@ -674,7 +674,7 @@ export function createPet(els, opts) {
       case 'sleep': setMode('sleep', { dur: 1e9 }); break;
       case 'dizzy': setMode('dizzy'); break;
       case 'wave': pulse('wave', 1.6); holdFace('happy', 1.8); break;
-      case 'bow': if (!seated) setMode('idle'); pulse('bow', 1.6); holdFace('bowing', 1.5); sfx.tick(); break;
+      case 'bow': if (!seated) setMode('idle'); pulse('bow', options.duration ?? 1.6); holdFace('bowing', (options.duration ?? 1.6) - .1); sfx.tick(); break;
       case 'shiver': pulse('shiver', 1.8); sfx.shiver(); break;
       case 'flap': setMode('crouch', { jumpV: 540, jumpVx: 0 }); pulse('flap', 1.4); holdFace('happy', 1.6); sfx.chirps(); break;
       case 'dance': setMode('dance', { dur: 3.2 }); holdFace('happy', 3.4); sfx.dance(); break;
@@ -686,9 +686,9 @@ export function createPet(els, opts) {
   /** A motion's own face, without the expression's sound and bounce (act() has just cleared any held face). */
   function holdFace(n, seconds) { pet.expr = n; pet.exprUntil = T + seconds; pet.nextAt = Math.max(pet.nextAt, pet.exprUntil + .6); }
 
-  function setExpr(n, seconds) {
+  function setExpr(n, seconds, force = false) {
     if (n === 'sleep') { act('sleep'); return; }
-    if (busy()) return;
+    if (busy() && !force) return;
     if (n === 'dragged') {
       pet.expr = null;
       pet.vy = -1150; pet.vx = rnd(-120, 120); pet.airKind = 'throw'; pet.sqv -= 3;
@@ -781,7 +781,7 @@ export function createPet(els, opts) {
     switch (m) {
       case 'idle': {
         lookT = track();
-        if (pointer.inside && !press && pdx * pet.facing < -50 && pm < 600) {
+        if (pointer.inside && !press && pdx * pet.facing < -50 ) {
           pet.turnAcc += dt;
           if (pet.turnAcc > .9) { pet.facing *= -1; pet.turnAcc = 0; }
         } else pet.turnAcc = 0;
@@ -1149,7 +1149,7 @@ export function createPet(els, opts) {
         sfx.purr();
         if (pet.mode === 'sleep') emitHeart();
         else setExpr(Math.random() < .5 ? 'love' : 'shy');
-        onEvent('touch', { kind: 'pet', asleep: pet.mode === 'sleep' });
+        onEvent('touch', { kind: p.y>toStage(128,150).y?'tickle':'pet', asleep: pet.mode === 'sleep' });
       }
     }
     return over ? 'grab' : '';
@@ -1227,6 +1227,10 @@ export function createPet(els, opts) {
   return {
     pet, step, render, resize, act, setExpr, walkTo, toStage, hitPet, busy,
     pointerDown, pointerMove, pointerUp, pointerLeave, dropAt, shiftDrag,
+    // Gaze input does not accumulate strokes or simulate a press.
+    trackPointer(p) { Object.assign(pointer,p,{inside:true}); },
+    interrupt() { press=null;pointer.samples=[];pet.pulse=null;pet.expr=null;pet.tilt=0;pet.tiltV=0;pet.vx=0;pet.vy=0;pet.look=[0,0];pet.fy=floorY;P.length=0;setMode('idle'); },
+    impact() { dustAt(128,6,55);const top=toStage(175,45);for(const p of P.slice(-6)){p.x=top.x;p.y=top.y;p.life=.85;}sfx.poke(); },
     get pressing() { return !!press; },
     /** Pressed, carried, airborne, walking, running, dancing, turning round, or in a short gesture (nod, wave, bow…): motion that frames far apart show as jumps. */
     get moving() {

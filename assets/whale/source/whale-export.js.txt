@@ -1,0 +1,61 @@
+import JSZip from 'jszip'
+
+const xml=s=>String(s??'').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;')
+export const cleanReply=s=>String(s??'').replace(/(\d)\s*\*\s*(?=\d)/g,'$1 × ').replace(/\\?\*/g,'')
+const cells=line=>line.trim().replace(/^\|/,'').replace(/\|$/,'').split(/(?<!\\)\|/).map(c=>c.trim().replace(/\\\|/g,'|'))
+const separator=line=>{const c=cells(line);return c.length>1&&c.every(s=>/^:?-{3,}:?$/.test(s))}
+export function replyBlocks(text){
+  const lines=cleanReply(text).replace(/\r\n?/g,'\n').split('\n'),blocks=[]
+  for(let i=0;i<lines.length;i++){
+    if(i+1<lines.length&&lines[i].includes('|')&&separator(lines[i+1])){
+      const rows=[cells(lines[i])];i++
+      while(i+1<lines.length&&lines[i+1].includes('|')&&lines[i+1].trim())rows.push(cells(lines[++i]))
+      const width=Math.max(...rows.map(r=>r.length));blocks.push({type:'table',rows:rows.map(r=>Array.from({length:width},(_,n)=>r[n]||''))})
+    }else blocks.push({type:'paragraph',text:lines[i]})
+  }
+  return blocks
+}
+const header='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+const rels=entries=>header+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+entries.map(([id,type,target])=>`<Relationship Id="${id}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/${type}" Target="${target}"/>`).join('')+'</Relationships>'
+const types=entries=>header+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>'+entries.map(([name,type])=>`<Override PartName="/${name}" ContentType="application/vnd.openxmlformats-officedocument.${type}+xml"/>`).join('')+'</Types>'
+const paragraph=(text,style='Normal')=>`<w:p><w:pPr><w:pStyle w:val="${style}"/></w:pPr><w:r><w:t xml:space="preserve">${xml(text)}</w:t></w:r></w:p>`
+function wordTable(rows){
+  const width=Math.max(1,Math.floor(9360/rows[0].length))
+  return '<w:tbl><w:tblPr><w:tblW w:w="9360" w:type="dxa"/><w:tblBorders>'+['top','left','bottom','right','insideH','insideV'].map(side=>`<w:${side} w:val="single" w:sz="4" w:color="CBD5E1"/>`).join('')+'</w:tblBorders></w:tblPr><w:tblGrid>'+rows[0].map(()=>`<w:gridCol w:w="${width}"/>`).join('')+'</w:tblGrid>'+rows.map((row,i)=>'<w:tr>'+(i===0?'<w:trPr><w:tblHeader/></w:trPr>':'')+row.map(c=>`<w:tc><w:tcPr><w:tcW w:w="${width}" w:type="dxa"/>${i===0?'<w:shd w:fill="EAF3F1"/>':''}</w:tcPr>${paragraph(c,i===0?'TableHeader':'Normal')}</w:tc>`).join('')+'</w:tr>').join('')+'</w:tbl>'
+}
+function docx(zip,title,meta,blocks){
+  zip.file('[Content_Types].xml',types([['word/document.xml','wordprocessingml.document.main'],['word/styles.xml','wordprocessingml.styles']]))
+  zip.file('_rels/.rels',rels([['rId1','officeDocument','word/document.xml']]))
+  zip.file('word/_rels/document.xml.rels',rels([['rId1','styles','styles.xml']]))
+  zip.file('word/styles.xml',header+'<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:eastAsia="Microsoft YaHei"/><w:sz w:val="22"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="120" w:line="300" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style><w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:rPr><w:b/><w:sz w:val="34"/></w:rPr></w:style><w:style w:type="paragraph" w:styleId="TableHeader"><w:name w:val="Table Header"/><w:basedOn w:val="Normal"/><w:rPr><w:b/></w:rPr></w:style></w:styles>')
+  zip.file('word/document.xml',header+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+paragraph(title,'Title')+meta.map(s=>paragraph(s)).join('')+paragraph('回答内容')+blocks.map(b=>b.type==='table'?wordTable(b.rows):paragraph(b.text)).join('')+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1273" w:right="1273" w:bottom="1273" w:left="1273"/></w:sectPr></w:body></w:document>')
+}
+const column=n=>{let result='';for(n++;n;n=Math.floor((n-1)/26))result=String.fromCharCode(65+(n-1)%26)+result;return result}
+function worksheet(rows,table=false){
+  // Every value is an explicit string: ISBN leading zeroes are preserved and formulas never execute.
+  const width=Math.max(...rows.map(r=>r.length),1)
+  return header+'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0">'+(table?'<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>':'')+'</sheetView></sheetViews><sheetFormatPr defaultRowHeight="24"/><cols>'+Array.from({length:width},(_,i)=>`<col min="${i+1}" max="${i+1}" width="${table?Math.max(18,Math.floor(110/width)):100}" customWidth="1"/>`).join('')+'</cols><sheetData>'+rows.map((row,r)=>`<row r="${r+1}" ht="${Math.min(409,Math.max(28,...row.map(s=>Math.ceil(String(s).length/(table?22:80))*18)))}" customHeight="1">`+row.map((c,n)=>`<c r="${column(n)}${r+1}" t="inlineStr" s="${table&&r===0?1:0}"><is><t xml:space="preserve">${xml(c)}</t></is></c>`).join('')+'</row>').join('')+'</sheetData>'+(table?`<autoFilter ref="A1:${column(width-1)}${rows.length}"/>`:'')+'</worksheet>'
+}
+function xlsx(zip,title,meta,blocks){
+  const full=[title,...meta,'回答内容',...blocks.flatMap(b=>b.type==='table'?b.rows.map(r=>r.join(' | ')):[b.text])].flatMap(line=>{const parts=[];for(let i=0;i<Math.max(1,line.length);i+=8000)parts.push([line.slice(i,i+8000)]);return parts})
+  const sheets=[{name:'完整回答',rows:full},...blocks.filter(b=>b.type==='table').map((b,i)=>({name:'表格'+(i+1),rows:b.rows,table:true}))]
+  if(sheets.some(s=>s.rows.some(r=>r.some(c=>c.length>32767))))throw new Error('表格单元格文字过长，请拆分回答后导出。')
+  zip.file('[Content_Types].xml',types([['xl/workbook.xml','spreadsheetml.sheet.main'],['xl/styles.xml','spreadsheetml.styles'],...sheets.map((_,i)=>['xl/worksheets/sheet'+(i+1)+'.xml','spreadsheetml.worksheet'])]))
+  zip.file('_rels/.rels',rels([['rId1','officeDocument','xl/workbook.xml']]))
+  zip.file('xl/workbook.xml',header+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheets.map((s,i)=>`<sheet name="${s.name}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')+'</sheets></workbook>')
+  zip.file('xl/_rels/workbook.xml.rels',rels([...sheets.map((_,i)=>['rId'+(i+1),'worksheet','worksheets/sheet'+(i+1)+'.xml']),['rIdStyles','styles','styles.xml']]))
+  zip.file('xl/styles.xml',header+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Microsoft YaHei"/></font><font><b/><sz val="11"/><name val="Microsoft YaHei"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEAF3F1"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="49" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf><xf numFmtId="49" fontId="1" fillId="2" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>')
+  sheets.forEach((s,i)=>zip.file('xl/worksheets/sheet'+(i+1)+'.xml',worksheet(s.rows,s.table)))
+}
+export async function buildReplyFile({format,content,question='',source,number=1}){
+  if(!['txt','docx','xlsx'].includes(format))throw new Error('不支持此导出格式。')
+  const text=cleanReply(content);if(!text.trim())throw new Error('回答内容为空，暂时无法导出。')
+  if(text.length>500000)throw new Error('回答过长，请分段导出。')
+  const title=(source?.title||question||'鲸鱼娘回答').replace(/[\r\n]+/g,' ').slice(0,100)
+  const filename=(title.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').replace(/[. ]+$/,'').slice(0,65)||'鲸鱼娘回答')+'-回答'+number+'.'+format
+  const meta=[question?'提问：'+question:'',source?.title?'参考页面：'+source.title:'',source?.url?'来源：'+source.url:''].filter(Boolean)
+  if(format==='txt')return {name:filename,type:'text/plain;charset=utf-8',bytes:new TextEncoder().encode('\ufeff'+[title,...meta,'',text].join('\r\n'))}
+  const zip=new JSZip(),blocks=replyBlocks(text)
+  if(format==='docx')docx(zip,title,meta,blocks);else xlsx(zip,title,meta,blocks)
+  return {name:filename,type:format==='docx'?'application/vnd.openxmlformats-officedocument.wordprocessingml.document':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',bytes:await zip.generateAsync({type:'uint8array',compression:'DEFLATE'})}
+}

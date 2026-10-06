@@ -7,11 +7,17 @@ Integration source:
 source/WhaleAssistant.vue.txt
 source/whale-assistant-adapter.js.txt
 source/whale-browser-chat.js.txt
+source/whale-chat-context.js.txt
+source/whale-chat-stream.js.txt
 source/whale-drag-inertia.js.txt
+source/whale-export.js.txt
+source/whale-hit-reaction.js.txt
 source/whale-interaction-lines.js.txt
 source/whale-material-guidance.js.txt
 source/whale-material-inventory.js.txt
+source/whale-page-context.js.txt
 source/whale-persona.js.txt
 source/whale-speech-player.js.txt
+source/whale-tickle-reaction.js.txt
 source/package.json.txt
 Build: npm ci; VITE_TEACHER_BROWSER=true npm run build
