@@ -1,10 +1,11 @@
 import {verifiedMaterialEntries} from './whale-material-inventory.js'
+import {normalizeSearch} from './whale-search.js'
 
 export {verifiedMaterialEntries}
 export const materialGuidance = `
 教材选用指引（2026-10-06核对）：
 只对中文、英语、数学建立详细方案，其他科目按实际课程寻找已有库存。先确认课程体系、科目、阶段、授课语言、能力、目标、学校进度与备考时间；每轮只问两至三个影响选书的关键问题。学校已有主教材时沿用。默认一套主教材、一至两项补充，说明先教什么、再练什么及如何复查。教材建立连续教学，真题用于诊断与检验，再按需要调用课包；不要堆砌书单。
-香港本地路线：小学常规数学优先现代小学数学第二版及英文版 Modern Primary Mathematics，按授课语言选；进阶优先 High Performance Math。英数指英文授课数学，High Performance Math不是英语科教材。初高中数学优先新世代数学，必修、M1、M2分开。小学英语进阶优先Lighthouse；初中常规优先Oxford English Forward或负责人认可的中一插班教研项目课件，语法优先EDGE第二版Grammar Book，听力优先Performance Plus；高中优先Developing Skills等。初中Performance Plus Level1至3不能等同HKDSE Paper1至3。中文常规优先启思中国语文，版次、启思生活与启思中国语文分开。这些是负责人偏好，不是所有学校采用的事实。幼儿阶段安排听说、识字、数感及简单活动，不整套提前教高年级课本。
+香港本地路线：小学常规数学优先现代小学数学第二版及英文版 Modern Primary Mathematics，按授课语言选；进阶优先 High Performance Math。英数指英文授课数学，High Performance Math不是英语科教材。初高中数学优先新世代数学，必修、M1、M2分开。数学新领域／Maths Smart（EPHHK教育出版社）是香港初中双语数学候选，同一目录提供中英名称；英数指英文授课数学。学生已使用此系列时优先沿用，按授课语言核对版本；不是小学或英系主教材，不取代负责人默认新世代推荐。小学英语进阶优先Lighthouse；初中常规优先Oxford English Forward或负责人认可的中一插班教研项目课件，语法优先EDGE第二版Grammar Book，听力优先Performance Plus；高中优先Developing Skills等。初中Performance Plus Level1至3不能等同HKDSE Paper1至3。中文常规优先启思中国语文，版次、启思生活与启思中国语文分开。这些是负责人偏好，不是所有学校采用的事实。幼儿阶段安排听说、识字、数感及简单活动，不整套提前教高年级课本。
 英系路线：区分英格兰国家课程、Cambridge Primary/Lower Secondary及实际考试局。小学Cambridge英语第二语言优先Cambridge Global English第二版1至6，初中7至9；不按册数机械换算香港年级，不把ESL主书当所有母语学生的文学课本。Oxford International Primary English 1至6是综合英语候选，也可服务ESL，不标成母语专用。小学数学可选Oxford International Primary Maths 1至6，先对照课程进度；即使存放IBPYP/Workbook也不代表IB指定教材或已确认册型。现代英数与High Performance只按适合知识点补充，不替代整套英系课程。KS3 CGP Year7至9适合巩固，不能保证完全对齐Cambridge。中学确认IGCSE第一/第二/外语、考试代码、考试年；数学0580、0606、9709与Edexcel数学A/B、Further Pure、A Level/IAL组件分开。AQA目录中的9260、9660、9665属OxfordAQA国际资格，不能当英国本土AQA。中文母语可用启思补充阅读写作，附加语言初学者不套用母语进度。
 IB路线：PYP不是统一指定书系；Mathematics PYP K至6、Oxford International Primary Maths、Oxford International Primary English、Nelson English Workbook是库存候选，按探究单元、学生能力和语言支持选择。MYP语言与文学和语言习得分开；语言习得Phase1至6不是年级，Oxford Capable Phases3/4与Proficient5/6按能力匹配；Hodder语言文学按对应阶段。MYP数学Standard/Extended分开，Oxford第二版2021和Haese可选，MYP10E不是DP主书。DP语言A/B/ab initio与SL/HL、指定作品分开；英语A有Cambridge Brad Philpot与Hodder2019候选，英语B有Oxford和Cambridge2018候选；中文A不能替代中文B。DP数学AA/AI、SL/HL分开，笔记不是主教材，不用DSE M1/M2或A Level替代DP全套。数学知识强、英语题干弱时补语言，不把两科一起降级。跨体系先诊断学科知识、授课语言、评价任务。
 学校书单：先用学校官网课程说明或学生给出的在用书名。实在不确定同类学校教什么，且会改变推荐时，才查相关学校、年级与学年书单；历史书单只作线索，不宣称学校当前使用。不需要常规读取总库文件正文。
@@ -14,25 +15,32 @@ IB路线：PYP不是统一指定书系；Mathematics PYP K至6、Oxford Internat
 下面为已核对入口（名称/存放路径为检索事实，标签为选材用途，不代表学校采用或完整性保证）：
 ` + JSON.stringify(verifiedMaterialEntries.map(({name,url,path,route,subject,note})=>({name,url,path,route,subject,note})))
 
-export function normalizeMaterialQuery(value='') {
-  return value.toLowerCase().replace(/小學/g,'小学').replace(/數學/g,'数学').replace(/英語/g,'英语').replace(/語文/g,'语文').replace(/啟思/g,'启思').replace(/劍橋/g,'剑桥').replace(/英國/g,'英国')
-}
+export const normalizeMaterialQuery = normalizeSearch
 
-// These entries also enter the UI allowlist, so returned links are verified IDs.
+const orderedEntries=ids=>ids.map(id=>verifiedMaterialEntries.find(r=>r.key===id)).filter(Boolean)
+
+// Named textbooks take precedence over stage-level suggestions.
 export function recommendedMaterialResults(message) {
   const q=normalizeMaterialQuery(message)
+  const explicit=verifiedMaterialEntries.filter(r=>r.aliases?.some(alias=>q.includes(normalizeMaterialQuery(alias))))
+  if(explicit.length)return explicit.sort((a,b)=>Math.max(...b.aliases.map(x=>normalizeMaterialQuery(x).length))-Math.max(...a.aliases.map(x=>normalizeMaterialQuery(x).length)))
   const primary=/小学|primary|pyp|ks[12]/.test(q)
-  const route=/pyp|ib/.test(q)?'ib':/英系|英国|剑桥|cambridge|ks[12]/.test(q)?'british':/香港|本地|dse/.test(q)?'hongkong':null
+  const route=/\bib\b|pyp|myp|dp/.test(q)?'ib':/英系|英国|剑桥|cambridge|ks[12]/.test(q)?'british':/香港|本地|dse/.test(q)?'hongkong':null
   const subject=/数学|英数|math/.test(q)?'math':/英语|英文|english/.test(q)?'english':/中文|语文|chinese/.test(q)?'chinese':null
+  // A specific, uncurated series must reach the full catalog instead of being
+  // swallowed by a broad stage recommendation (e.g. 小学启思语文新天地).
+  const specific=q.replace(/香港|本地|英系|英国|剑桥|cambridge|dse|ib|pyp|小学|小[一二三四五六]|primary|ks[12]|数学|英数|英文数学|英语|英文|english|maths?|中文|语文|chinese|教材|资料|推荐|常规|进阶|拔尖|提高|advanced|授课|用哪个|用什么|请问|查找|搜索|找|的|有没有|一下|\s|[\d\p{P}]/gu,'')
+  if(primary&&specific)return []
   if(primary&&!subject){
-    const ids=route==='british'?['british-primary']:route==='ib'?['ib-pyp']:route==='hongkong'?['hk-primary']:['british-primary','ib-pyp','hk-primary']
-    return verifiedMaterialEntries.filter(r=>ids.includes(r.key))
+    return orderedEntries(route==='british'?['british-primary']:route==='ib'?['ib-pyp']:route==='hongkong'?['hk-primary']:['british-primary','ib-pyp','hk-primary'])
   }
-  const explicit=verifiedMaterialEntries.filter(r=>r.aliases?.some(alias=>q.includes(alias.toLowerCase())))
-  if(explicit.length)return explicit
   if(primary&&subject){
-    const ids=subject==='math'?(route==='british'?['oip-math']:route==='ib'?['ib-pyp-math','oip-math']:['modern-en','modern-cn','high-performance']):subject==='english'?(route==='british'?['global-english','oip-english']:route==='ib'?['oip-english','nelson']:['lighthouse','hk-primary']):['hk-primary']
-    return verifiedMaterialEntries.filter(r=>ids.includes(r.key))
+    const englishMedium=/英数|英文数学|英语授课|english.medium/.test(q)
+    const mathIds=route==='british'?['oip-math']:route==='ib'?['ib-pyp-math','oip-math']:
+      /进阶|拔尖|提高|advanced/.test(q)?['high-performance',englishMedium?'modern-en':'modern-cn']:
+      englishMedium?['modern-en','high-performance']:['modern-cn','modern-en','high-performance']
+    const ids=subject==='math'?mathIds:subject==='english'?(route==='british'?['global-english','oip-english']:route==='ib'?['oip-english','nelson']:['lighthouse','hk-primary']):['hk-primary']
+    return orderedEntries(ids)
   }
   return []
 }

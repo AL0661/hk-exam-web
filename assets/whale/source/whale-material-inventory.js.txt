@@ -630,5 +630,30 @@ export const verifiedMaterialEntries = [
     "verifiedAt": "2026-10-06",
     "evidence": "folder-and-filename-only",
     "isDirectory": false
+  },
+  {
+    "key": "maths-smart",
+    "id": "verified-material:maths-smart",
+    "name": "【数学双语】EPHHK-教育出版社数学新领域 Maths Smart",
+    "url": "https://drive.google.com/drive/folders/1wUntBJVySSLpL2LD_lL0nUHRKEo7qEq7",
+    "path": [
+      "01 教材与配套资源",
+      "【DSE体系】初中教材",
+      "数学",
+      "【数学双语】EPHHK-教育出版社数学新领域 Maths Smart"
+    ],
+    "route": "hongkong",
+    "subject": "math",
+    "aliases": [
+      "maths smart",
+      "math smart",
+      "数学新领域",
+      "教育出版社数学新领域"
+    ],
+    "note": "香港初中双语数学候选；按授课语言核对版本，学校在用时优先沿用；负责人默认仍为新世代",
+    "category": "已核对教材推荐",
+    "verifiedAt": "2026-10-06",
+    "evidence": "folder-and-filename-only",
+    "isDirectory": false
   }
 ]

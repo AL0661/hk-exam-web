@@ -1,0 +1,67 @@
+import * as OpenCC from 'opencc-js/t2cn'
+
+const simplify = OpenCC.Converter({from:'hk',to:'cn'})
+// Normalize both queries and indexed names; keep the original names for display.
+export function normalizeSearch(value='') {
+  return simplify(String(value).normalize('NFKC')).toLowerCase()
+    .replace(/a[\s-]*levels?/g,'alevel').replace(/\s+/g,' ').trim()
+}
+
+function nearWord(a,b) {
+  if(a.length<4||b.length<4||Math.abs(a.length-b.length)>1)return false
+  if(a.length===b.length){
+    const differences=[...a].map((c,i)=>c===b[i]?-1:i).filter(i=>i>=0)
+    if(differences.length===2){
+      const [i,j]=differences
+      if(j===i+1&&a[i]===b[j]&&a[j]===b[i])return true
+    }
+  }
+  let row=Array.from({length:b.length+1},(_,i)=>i)
+  for(let i=1;i<=a.length;i++){
+    const next=[i]
+    for(let j=1;j<=b.length;j++)next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]===b[j-1]?0:1))
+    row=next
+  }
+  return row[b.length]<=1
+}
+
+export function rankResourceResults(resources,message) {
+  const q=normalizeSearch(message)
+  const subject=/数学|英数|maths?|mathematics/.test(q)?/数学|英数|maths?|mathematics/:
+    /英语|英文|english/.test(q)?/英语|英文|english/:
+    /中文|语文|chinese/.test(q)?/中文|语文|chinese/:null
+  const stage=/小学|primary|pyp|ks[12]/.test(q)?/小学|primary|pyp|ks[12]/:
+    /初中|中一|ks3|myp/.test(q)?/初中|中一|ks3|myp/:
+    /高中|中四|中五|中六|senior|dp/.test(q)?/高中|中四|中五|中六|senior|dp/:null
+  const qualification=['igcse','alevel','dse'].find(t=>q.includes(t))
+  const clean=q.replace(/请问|请|帮我|帮忙|查找|搜索|找到|找|推荐|有没有|在哪[里]?|哪里|教材|资料|的|一下/g,' ')
+  const broad=!!(subject&&stage)&&!clean.replace(/香港|本地|数学|英数|英语|英文|中文|语文|小学|初中|高中|中[一二三四五六]|primary|maths?|english|chinese|pyp|myp|ks[123]|dse|\s/g,'')
+  const terms=[...new Set(clean.match(/[a-z0-9]+|[\p{Script=Han}]+/gu)||[])]
+  if(!terms.length)return []
+  return resources.map((r,index)=>{
+    const name=normalizeSearch(r.name),path=normalizeSearch((r.path||[]).join(' '))
+    const aliases=(r.aliases||[]).map(normalizeSearch)
+    const text=[name,path,normalizeSearch(r.category),...aliases].join(' ')
+    if(subject&&!subject.test(text)||stage&&!stage.test(text)||qualification&&!text.includes(qualification))return {...r,score:0,index}
+    let score=terms.reduce((n,t)=>{
+      if(name.includes(t)||aliases.some(a=>a.includes(t)))return n+40+t.length
+      if(path.includes(t))return n+10
+      if(text.includes(t))return n+2
+      if(/^[a-z]+$/.test(t)&&[name,...aliases].join(' ').match(/[a-z]+/g)?.some(word=>nearWord(t,word)))return n+20
+      if(/\p{Script=Han}/u.test(t)&&t.length>2){
+        const pairs=[...t].slice(0,-1).map((c,i)=>c+t[i+1])
+        const matched=pairs.filter(p=>name.includes(p)).length
+        return n+(matched>=Math.ceil(pairs.length/2)?matched*3:0)
+      }
+      return n
+    },broad?20:0)
+    if(name===q||aliases.includes(q))score+=1000
+    else if(!broad&&name.includes(q))score+=300
+    // Owner preferences apply to broad subject requests, below explicit title matches.
+    if(subject&&stage&&/新世代/.test(name)&&/数学|英数/.test(q))score+=80
+    if(subject&&stage&&/english forward/.test(name)&&/初中/.test(q))score+=80
+    return {...r,score,index}
+  }).filter(r=>r.score>0).sort((a,b)=>b.score-a.score||a.index-b.index)
+    .filter((r,i,rows)=>rows.findIndex(other=>other.url?.split('?')[0]===r.url?.split('?')[0])===i)
+    .map(({score,index,...resource})=>resource)
+}

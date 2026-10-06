@@ -920,9 +920,15 @@
             "初中教材",
             "数学"
           ],
-          "name": "【数学双语】EPHHK-教育出版社数学新领域",
+          "name": "【数学双语】EPHHK-教育出版社数学新领域 Maths Smart",
           "note": "",
-          "url": "https://drive.google.com/drive/folders/1wUntBJVySSLpL2LD_lL0nUHRKEo7qEq7?usp=drive_link"
+          "url": "https://drive.google.com/drive/folders/1wUntBJVySSLpL2LD_lL0nUHRKEo7qEq7?usp=drive_link",
+          "aliases": [
+            "maths smart",
+            "math smart",
+            "数学新领域",
+            "教育出版社数学新领域"
+          ]
         },
         {
           "id": "04-040",

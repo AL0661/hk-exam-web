@@ -16,11 +16,11 @@
   },
   "devDependencies": {
     "@napi-rs/canvas": "^1.0.10",
+    "jszip": "^3.10.2",
     "mammoth": "^1.13.0",
     "pdfjs-dist": "^6.4.299",
     "vitepress": "^1.6.4",
-    "vue": "^3.5.43",
-    "jszip": "^3.10.2"
+    "vue": "^3.5.43"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -28,5 +28,8 @@
         "@algolia/client-search"
       ]
     }
+  },
+  "dependencies": {
+    "opencc-js": "^1.4.2"
   }
 }

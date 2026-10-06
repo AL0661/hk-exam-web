@@ -1,4 +1,5 @@
 import {verifiedMaterialEntries,recommendedMaterialResults} from './whale-material-guidance.js'
+import {normalizeSearch,rankResourceResults} from './whale-search.js'
 
 export function resourceDirectories(catalog) {
   const directories=(catalog?.categories||[]).flatMap(category=>{
@@ -26,7 +27,7 @@ export function resourceDirectories(catalog) {
 export function createLocalResourceAdapter(catalog) {
   return async ({message, signal}) => {
     await new Promise((resolve,reject)=>{const t=setTimeout(resolve,550);signal?.addEventListener('abort',()=>{clearTimeout(t);reject(new DOMException('Aborted','AbortError'))},{once:true})})
-    const query=message.trim().replace(/小學/g,'小学').replace(/教學/g,'教学').replace(/資料/g,'资料')
+    const query=normalizeSearch(message)
     const entries=resourceDirectories(catalog)
     const recommendations=recommendedMaterialResults(message)
     if(recommendations.length)return {script:'【开心】这些是已核对的教材入口。<点头>按课程体系和学生水平选择；目录只核对了名称与路径，未审读教材正文。',resources:recommendations,state:'happy'}
@@ -38,15 +39,9 @@ export function createLocalResourceAdapter(catalog) {
       else if(/香港|本地|dse/i.test(query))stages=stages.filter(r=>r.stage==='hongkong')
       if(stages.length)return {script:stages.length>1?'【开心】可以先从这些小学阶段资料入口查找。<点头>英系入口包含 KS1 至 KS3；IB 目前是综合入口，可进入后查找 PYP；香港小学入口按科目整理教材。':'【开心】找到对应体系的资料入口啦。<点头>综合入口里可以继续选择具体阶段和教材。',resources:stages,state:'happy'}
     }
-    const directories=entries.filter(group=>group.name===query||group.name===query+'教材')
+    const directories=entries.filter(group=>normalizeSearch(group.name)===query||normalizeSearch(group.name)===query+'教材')
     if(directories.length)return {script:'【开心】找到对应的资料目录啦。<点头>进入目录后，可以继续按科目选择教材。',resources:directories,state:'happy'}
-    const tokens=message.toLowerCase().match(/[a-z0-9]+|[\u4e00-\u9fff]{1,}/g)||[]
-    const hints=['数学','英文','英语','中文','语文','物理','化学','生物','爱德思','新加坡','教材','真题','面试']
-    const terms=[...new Set([...tokens,...hints.filter(x=>message.includes(x))])].filter(x=>!['教材','资料','在哪','哪里'].includes(x))
-    const ranked=catalog.categories.flatMap(c=>c.resources.map(r=>({...r,category:c.title}))).map(r=>{
-      const text=[r.name,...r.path,r.category].join(' ').toLowerCase()
-      const required=[...hints.filter(t=>!['教材','真题','面试'].includes(t)&&message.includes(t)),...['igcse','alevel','ib','dse'].filter(t=>message.toLowerCase().includes(t))]; return {...r,score:required.every(t=>(['igcse','alevel'].includes(t)?[r.name,...r.path].join(' ').toLowerCase():text).includes(t))?terms.reduce((n,t)=>n+(text.includes(t)?t.length:0),0):0}
-    }).filter(r=>r.score>0).sort((a,b)=>b.score-a.score)
+    const ranked=rankResourceResults([...verifiedMaterialEntries,...(catalog?.categories||[]).flatMap(c=>c.resources.map(r=>({...r,category:c.title})))],message)
     return {script:ranked.length?'【开心,招手】找到相关资料啦。<点头>下面是本地目录中匹配的入口，点击即可打开网盘。':'【思考】暂时没有匹配到资源。<张望>试试课程体系加科目，例如“IGCSE 爱德思 数学”。',text:ranked.length?'在本地目录中找到这些相关入口，点击即可打开网盘。':'暂时没有匹配到资源。试试课程体系＋科目，例如“IGCSE 爱德思 数学”。',resources:ranked.map(({id,name,url})=>({id,name,url})),state:ranked.length?'happy':'idle'}
   }
 }
